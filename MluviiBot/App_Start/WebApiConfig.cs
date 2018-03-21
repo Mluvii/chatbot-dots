@@ -10,24 +10,25 @@ namespace MluviiBot
         {
             // Json settings
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings()
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Formatting = Newtonsoft.Json.Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore
             };
 
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
+//            config.MapHttpAttributeRoutes();
+//
+//            config.Routes.MapHttpRoute(
+//                "DefaultApi",
+//                "api/{controller}/{id}",
+//                new {id = RouteParameter.Optional});
         }
     }
 }

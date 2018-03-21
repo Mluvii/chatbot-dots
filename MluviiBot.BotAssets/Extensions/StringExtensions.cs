@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 
 namespace MluviiBot.BotAssets.Extensions
@@ -10,12 +9,12 @@ namespace MluviiBot.BotAssets.Extensions
         {
             return textsToSearch.Any(t => baseString.ContainsIgnoreCaseAndAccents(baseString));
         }
-        
+
         public static bool ContainsIgnoreCaseAndAccents(this string baseString, string textToSearch)
         {
-            CompareInfo ci = new CultureInfo("").CompareInfo;
-            CompareOptions co = CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace;
-            
+            var ci = new CultureInfo("").CompareInfo;
+            var co = CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace;
+
             return ci.IndexOf(baseString, textToSearch, co) != -1;
         }
     }

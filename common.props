@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <Company>iCORD International s.r.o.</Company>
+    <Product>DotsBot</Product>
+    <Copyright>Copyright © iCORD International s.r.o. 2017</Copyright>
+    <BuildNumberSuffix Condition=" '$(BuildNumberSuffix)' == '' ">0-dev</BuildNumberSuffix>
+    <Version>1.0.$(BuildNumberSuffix)</Version>
+  </PropertyGroup>
+</Project>

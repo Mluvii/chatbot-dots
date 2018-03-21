@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.ConnectorEx;
 using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.FormFlow;
-using Microsoft.Bot.Builder.Location;
 using Microsoft.Bot.Connector;
 using MluviiBot.BLL;
 using MluviiBot.BotAssets;
+using MluviiBot.BotAssets.Dialogs;
 using MluviiBot.BotAssets.Extensions;
 using MluviiBot.BotAssets.Models;
 using MluviiBot.Models;
 using MluviiBot.Properties;
 using Newtonsoft.Json.Linq;
-using MluviiBot.BotAssets.Dialogs;
 
 #pragma warning disable 1998
 namespace MluviiBot.Dialogs
@@ -22,13 +19,14 @@ namespace MluviiBot.Dialogs
     public class MluviiDialog : IDialog<Order>
     {
         private const int MaxAttempts = 5;
+        private readonly ICrmService crmService;
         private readonly DebugOptions debugOptions;
         private readonly IDialogFactory dialogFactory;
-        private readonly ICrmService crmService;
         private ConversationReference conversationReference;
         private CrmEntity crmEntity;
 
-        public MluviiDialog(IDialogFactory dialogFactory, ICrmService crmService, DebugOptions debugOptions = DebugOptions.None)
+        public MluviiDialog(IDialogFactory dialogFactory, ICrmService crmService,
+            DebugOptions debugOptions = DebugOptions.None)
         {
             this.dialogFactory = dialogFactory;
             this.crmService = crmService;
@@ -60,15 +58,9 @@ namespace MluviiBot.Dialogs
                 return;
             }
 
-            if (conversationReference == null)
-            {
-                conversationReference = message.ToConversationReference();
-            }
+            if (conversationReference == null) conversationReference = message.ToConversationReference();
 
-            if (crmEntity == null)
-            {
-                crmEntity = crmService.GetCrmData(conversationReference.User.Id);
-            }
+            if (crmEntity == null) crmEntity = crmService.GetCrmData(conversationReference.User.Id);
             SetCallParams(context);
 
 
@@ -90,7 +82,7 @@ namespace MluviiBot.Dialogs
                 await OnBotSelected(context);
                 return;
             }
-            
+
             StartOver(context);
         }
 
@@ -109,7 +101,8 @@ namespace MluviiBot.Dialogs
 
         private async Task OnBotSelected(IDialogContext context)
         {
-            PromptDialog.Number(context, OnInstalmentsSelected, Resources.MluviiDialog_instalments_prompt, Resources.RetryText, MaxAttempts, min: 1, max: 120);
+            PromptDialog.Number(context, OnInstalmentsSelected, Resources.MluviiDialog_instalments_prompt,
+                Resources.RetryText, MaxAttempts, min: 1, max: 120);
         }
 
         private async Task OnInstalmentsSelected(IDialogContext context, IAwaitable<long> result)
@@ -130,43 +123,46 @@ namespace MluviiBot.Dialogs
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 "",
-                string.Format(Resources.MluviiDialog_product_offer, crmEntity.Order.ProductName, crmEntity.Order.ProductPrice, emi, interest * 100),
+                string.Format(Resources.MluviiDialog_product_offer, crmEntity.Order.ProductName,
+                    crmEntity.Order.ProductPrice, emi, interest * 100),
                 new[]
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
                     Resources.MluviiDialog_product_offer_choice_sign_offline,
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
-                    Resources.MluviiDialog_product_offer_choice_offer_no_good,
+                    Resources.MluviiDialog_product_offer_choice_offer_no_good
                 },
                 new[] {crmEntity.Order.ProductPhotoUrl});
-            
+
             context.Wait(ProductOfferReacted);
         }
 
         private async Task ProductOfferReacted(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var choice = await result;
-            
+
             if (choice.Text.ContainsAnyIgnoreCaseAndAccents("elektronicky", "online"))
             {
                 await SignOnlineSelected(context);
                 return;
             }
+
             if (choice.Text.ContainsAnyIgnoreCaseAndAccents("pobocce", "osobne"))
             {
                 await SignOfflineSelected(context);
                 return;
             }
+
             if (choice.Text.ContainsAnyIgnoreCaseAndAccents("operator"))
             {
                 await CheckAvailableOperators(context);
                 return;
             }
+
             if (choice.Text.ContainsAnyIgnoreCaseAndAccents("nesouhlasim", "urok"))
             {
                 await context.SayAsync(Resources.MluviiDialog_product_offer_choice_offer_no_good_selected);
                 await CheckAvailableOperators(context);
-                return;
             }
         }
 
@@ -194,9 +190,11 @@ namespace MluviiBot.Dialogs
 
             var message = await result;
 
-            if (message.ContainsIgnoreCaseAndAccents(crmEntity.FirstName) && message.ContainsIgnoreCaseAndAccents(crmEntity.LastName))
+            if (message.ContainsIgnoreCaseAndAccents(crmEntity.FirstName) &&
+                message.ContainsIgnoreCaseAndAccents(crmEntity.LastName))
             {
-                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Email, crmEntity.Order.ProductName));
+                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Email,
+                    crmEntity.Order.ProductName));
                 return;
             }
 
@@ -214,13 +212,13 @@ namespace MluviiBot.Dialogs
             var numberOfPayments = instalmentCount;
 
             var rateOfInterest = interest / (numberOfPayments * 100);
-            var paymentAmount = (rateOfInterest * (double) orderProductPrice) /
+            var paymentAmount = rateOfInterest * (double) orderProductPrice /
                                 (1 - Math.Pow(1 + rateOfInterest, numberOfPayments * -1));
 
-            return Decimal.Round((decimal) paymentAmount, 2);
+            return decimal.Round((decimal) paymentAmount, 2);
         }
 
-        
+
         private async Task CheckAvailableOperators(IDialogContext context)
         {
             await context.SayAsync(Resources.MluviiDialog_wait_checking_available_operators);
@@ -234,7 +232,8 @@ namespace MluviiBot.Dialogs
 
             if (selectedOperator == null)
             {
-                PromptDialog.Confirm(context, OnStartOverSelected, Resources.MluviiDialog_operator_failed, Resources.RetryText, MaxAttempts);
+                PromptDialog.Confirm(context, OnStartOverSelected, Resources.MluviiDialog_operator_failed,
+                    Resources.RetryText, MaxAttempts);
                 return;
             }
 
@@ -255,10 +254,7 @@ namespace MluviiBot.Dialogs
 
             var message = await result;
 
-            if (message)
-            {
-                StartOver(context);
-            }
+            if (message) StartOver(context);
         }
 
         private async Task ConnectToOperator(IDialogContext context, string message, int? userID = null)
@@ -271,7 +267,7 @@ namespace MluviiBot.Dialogs
             act.Text = message;
             await context.PostAsync(act);
         }
-        
+
 
         private async void SetCallParams(IDialogContext context)
         {
@@ -279,7 +275,7 @@ namespace MluviiBot.Dialogs
             {
                 {ClientCallPredefParam.GUEST_IDENTITY, crmEntity.FullName},
                 {ClientCallPredefParam.GUEST_EMAIL, crmEntity.Email},
-                {ClientCallPredefParam.GUEST_PHONE, crmEntity.Phone},
+                {ClientCallPredefParam.GUEST_PHONE, crmEntity.Phone}
             };
             var CallParams = JObject.FromObject(dict);
             var data = JObject.Parse(@"{ ""Activity"": ""SetCallParams"" }");
@@ -292,8 +288,8 @@ namespace MluviiBot.Dialogs
 
         private async Task DebugMenu(IDialogContext context)
         {
-            switch (debugOptions)
-            {
+//            switch (debugOptions)
+//            {
 //                case DebugOptions.GotoFinalConfirmation:
 //                    await AskVerification(context);
 //                    break;
@@ -304,7 +300,7 @@ namespace MluviiBot.Dialogs
 //                    await OnPersonalDetailsGiven(context, new AwaitableFromItem<Person>(order.CustomerDetails));
 //                    await context.SayAsync("Sokolovska 1 Praha");
 //                    break;
-            }
+//            }
         }
     }
 }

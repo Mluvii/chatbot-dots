@@ -11,22 +11,22 @@ namespace MluviiBot.BotAssets.Dialogs
 
         public DialogFactory(IComponentContext scope)
         {
-            SetField.NotNull(out this.Scope, nameof(scope), scope);
+            SetField.NotNull(out Scope, nameof(scope), scope);
         }
 
         public T Create<T>()
         {
-            return this.Scope.Resolve<T>();
+            return Scope.Resolve<T>();
         }
 
         public T Create<T, U>(U parameter)
         {
-            return this.Scope.Resolve<T>(TypedParameter.From(parameter));
+            return Scope.Resolve<T>(TypedParameter.From(parameter));
         }
 
         public T Create<T>(IDictionary<string, object> parameters)
         {
-            return this.Scope.Resolve<T>(parameters.Select(kv => new NamedParameter(kv.Key, kv.Value)));
+            return Scope.Resolve<T>(parameters.Select(kv => new NamedParameter(kv.Key, kv.Value)));
         }
     }
 }

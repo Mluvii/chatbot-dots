@@ -14,13 +14,15 @@ namespace MluviiBot.BotAssets.Dialogs
         public PromptStringRegex(string prompt, string regexPattern, string retry = null)
             : base(new PromptOptions<string>(prompt, retry))
         {
-            this.regex = new Regex(regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            regex = new Regex(regexPattern,
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
         }
 
         protected override bool TryParse(IMessageActivity message, out string result)
         {
-            var quitCondition = message.Text.Equals("B", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("Back", StringComparison.InvariantCultureIgnoreCase);
-            var validEmail = this.regex.Match(message.Text).Success;
+            var quitCondition = message.Text.Equals("B", StringComparison.InvariantCultureIgnoreCase) ||
+                                message.Text.Equals("Back", StringComparison.InvariantCultureIgnoreCase);
+            var validEmail = regex.Match(message.Text).Success;
 
             result = validEmail ? message.Text : null;
 

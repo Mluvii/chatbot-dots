@@ -1,28 +1,39 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Autofac;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
+using Microsoft.Extensions.Configuration;
 using MluviiBot.BLL;
 using MluviiBot.BotAssets.Extensions;
 using MluviiBot.Properties;
 
 namespace MluviiBot.Controllers
 {
-    [BotAuthentication]
-    public class MessagesController : ApiController
+    [Route("api")]
+    public class MessagesController : Controller
     {
+        private IConfiguration configuration;
+
+        public MessagesController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         /// <summary>
         ///     POST: api/Messages
         ///     Receive a message from a user and reply to it
         /// </summary>
-        public async Task<HttpResponseMessage> Post([FromBody] Activity activity)
+        [Authorize(Roles = "Bot")]
+        [HttpPost]
+        [Route("messages")]
+        public async Task<OkResult> Post([FromBody] Activity activity)
         {
+            //MicrosoftAppCredentials.TrustServiceUrl(activity.ServiceUrl);
             using (var scope = DialogModule.BeginLifetimeScope(Conversation.Container, activity))
             {
                 if (activity.Type == ActivityTypes.Message || activity.Type == ActivityTypes.Event)
@@ -31,10 +42,11 @@ namespace MluviiBot.Controllers
                     await Conversation.SendAsync(activity, () => dialog);
                 }
                 else
+                {
                     await HandleSystemMessage(activity, scope);
+                }
 
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                return response;
+                return Ok();
             }
         }
 
@@ -57,18 +69,22 @@ namespace MluviiBot.Controllers
                 {
                     var crmService = scope.Resolve<ICrmService>();
                     var crmEntity = crmService.GetCrmData(memberAccount.Id);
-                    var client = new ConnectorClient(new Uri(message.ServiceUrl), new MicrosoftAppCredentials());
+                    var appCredentials = new MicrosoftAppCredentials(
+                        configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppIdKey)?.Value,
+                        configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppPasswordKey)?.Value);
+                    var connector = new ConnectorClient(new Uri(message.ServiceUrl), appCredentials);
                     var reply = message.CreateReply();
                     reply.AddHeroCard(
                         crmEntity.Order.ProductName,
-                        string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
+                        string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName,
+                            crmEntity.Order?.ProductName),
                         new[]
                         {
                             Resources.WelcomeMessage_operator,
                             Resources.MluviiDialog_virtual_assistant
                         },
                         new[] {crmEntity.Order.ProductPhotoUrl});
-                    await client.Conversations.ReplyToActivityAsync(reply);
+                    await connector.Conversations.ReplyToActivityAsync(reply);
                 }
                 else if (message.Type == ActivityTypes.ContactRelationUpdate)
                 {

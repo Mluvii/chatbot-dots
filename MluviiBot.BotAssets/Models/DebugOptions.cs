@@ -5,6 +5,6 @@
         None,
         GotoFinalConfirmation,
         GotoOperatorSearch,
-        GotoMap,
+        GotoMap
     }
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Internals.Fibers;
 using MluviiBot.BotAssets.Dialogs;
-using MluviiBot.Models;
 using MluviiBot.Properties;
 
 #pragma warning disable 1998

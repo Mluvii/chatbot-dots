@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using iCord.OnifWebLib.Linq;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using MluviiBot.BotAssets.Dialogs;
+using MluviiBot.BotAssets.Extensions;
 using MluviiBot.Models;
 using MluviiBot.Properties;
 using Newtonsoft.Json;
@@ -92,7 +92,8 @@ namespace MluviiBot.Dialogs
             context.Done<AvailableOperatorInfo>(null);
         }
 
-        private async Task OnSingleOperatorConfirmed(IDialogContext context, IAwaitable<string> result, string operatorName)
+        private async Task OnSingleOperatorConfirmed(IDialogContext context, IAwaitable<string> result,
+            string operatorName)
         {
             try
             {
@@ -108,7 +109,8 @@ namespace MluviiBot.Dialogs
             if (choice.ToLower() == "mluvit")
                 await OnOperatorSelected(context, new AwaitableFromItem<string>(operatorName));
             else
-                await OnOperatorSelected(context, new AwaitableFromItem<string>(Resources.OperatorSelection_not_interesed));
+                await OnOperatorSelected(context,
+                    new AwaitableFromItem<string>(Resources.OperatorSelection_not_interesed));
         }
 
         private async Task OnOperatorSelected(IDialogContext context, IAwaitable<string> result)

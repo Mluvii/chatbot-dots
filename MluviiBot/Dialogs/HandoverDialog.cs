@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MluviiBot.Dialogs
 {
-    public class HandoverDialog: IDialog
+    public class HandoverDialog : IDialog
     {
         public async Task StartAsync(IDialogContext context)
         {

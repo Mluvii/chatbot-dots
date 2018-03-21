@@ -1,15 +1,15 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
+﻿//using Microsoft.AspNetCore.Routing;
+//
+//namespace MluviiBot
+//{
+//    public class RouteConfig
+//    {
+//        public static void RegisterRoutes(RouteCollection routes)
+//        {
+//            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+//
+//            routes.MapMvcAttributeRoutes();
+//        }
+//    }
+//}
 
-namespace MluviiBot
-{
-    public class RouteConfig
-    {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapMvcAttributeRoutes();
-        }
-    }
-}

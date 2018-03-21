@@ -10,7 +10,10 @@ namespace MluviiBot.BotAssets.Dialogs
     [Serializable]
     public class CancelablePromptChoice<T> : PromptDialog.PromptChoice<T>
     {
-        private static IEnumerable<string> cancelTerms = new[] { "Cancel", "Back", "B", "Abort", "Zpět", "Zpet", "Zpátky", "Zrušit", "Zpatky", "Zrusit", "Vrátit", "Návrat" };
+        private static readonly IEnumerable<string> cancelTerms = new[]
+        {
+            "Cancel", "Back", "B", "Abort", "Zpět", "Zpet", "Zpátky", "Zrušit", "Zpatky", "Zrusit", "Vrátit", "Návrat"
+        };
 
         private new readonly CancelablePromptOptions<T> promptOptions;
 
@@ -20,17 +23,24 @@ namespace MluviiBot.BotAssets.Dialogs
             this.promptOptions = promptOptions;
         }
 
-        public CancelablePromptChoice(IEnumerable<T> options, string prompt, string cancelPrompt, string retry, int attempts, PromptStyle promptStyle = PromptStyle.Auto)
-            : this(new CancelablePromptOptions<T>(prompt, cancelPrompt, retry, options: options.ToList(), attempts: attempts, promptStyler: new PromptStyler(promptStyle)))
+        public CancelablePromptChoice(IEnumerable<T> options, string prompt, string cancelPrompt, string retry,
+            int attempts, PromptStyle promptStyle = PromptStyle.Auto)
+            : this(new CancelablePromptOptions<T>(prompt, cancelPrompt, retry, options: options.ToList(),
+                attempts: attempts, promptStyler: new PromptStyler(promptStyle)))
         {
         }
 
-        public static void Choice(IDialogContext context, ResumeAfter<T> resume, IEnumerable<T> options, string prompt, string cancelPrompt = null, string retry = null, int attempts = 3, PromptStyle promptStyle = PromptStyle.Auto)
+        public static void Choice(IDialogContext context, ResumeAfter<T> resume, IEnumerable<T> options, string prompt,
+            string cancelPrompt = null, string retry = null, int attempts = 3,
+            PromptStyle promptStyle = PromptStyle.Auto)
         {
-            Choice(context, resume, new CancelablePromptOptions<T>(prompt, cancelPrompt, retry, attempts: attempts, options: options.ToList(), promptStyler: new PromptStyler(promptStyle)));
+            Choice(context, resume,
+                new CancelablePromptOptions<T>(prompt, cancelPrompt, retry, attempts: attempts,
+                    options: options.ToList(), promptStyler: new PromptStyler(promptStyle)));
         }
 
-        public static void Choice(IDialogContext context, ResumeAfter<T> resume, CancelablePromptOptions<T> promptOptions)
+        public static void Choice(IDialogContext context, ResumeAfter<T> resume,
+            CancelablePromptOptions<T> promptOptions)
         {
             var child = new CancelablePromptChoice<T>(promptOptions);
             context.Call(child, resume);
@@ -52,9 +62,10 @@ namespace MluviiBot.BotAssets.Dialogs
             return base.TryParse(message, out result);
         }
 
-        protected override IMessageActivity MakePrompt(IDialogContext context, string prompt, IReadOnlyList<T> options = null, IReadOnlyList<string> descriptions = null, string speak = null)
+        protected override IMessageActivity MakePrompt(IDialogContext context, string prompt,
+            IReadOnlyList<T> options = null, IReadOnlyList<string> descriptions = null, string speak = null)
         {
-            prompt += Environment.NewLine + (this.promptOptions.CancelPrompt ?? this.promptOptions.DefaultCancelPrompt);
+            prompt += Environment.NewLine + (promptOptions.CancelPrompt ?? promptOptions.DefaultCancelPrompt);
             return base.MakePrompt(context, prompt, options);
         }
     }
@@ -62,16 +73,18 @@ namespace MluviiBot.BotAssets.Dialogs
     [Serializable]
     public class CancelablePromptOptions<T> : PromptOptions<T>
     {
-        public CancelablePromptOptions(string prompt, string cancelPrompt = null, string retry = null, string tooManyAttempts = null, IReadOnlyList<T> options = null, int attempts = 3, PromptStyler promptStyler = null) 
+        public CancelablePromptOptions(string prompt, string cancelPrompt = null, string retry = null,
+            string tooManyAttempts = null, IReadOnlyList<T> options = null, int attempts = 3,
+            PromptStyler promptStyler = null)
             : base(prompt, retry, tooManyAttempts, options, attempts, promptStyler)
         {
-            this.DefaultCancelPrompt = Resources.CancelablePromptChoice_CancelText;
+            DefaultCancelPrompt = Resources.CancelablePromptChoice_CancelText;
 
-            this.CancelPrompt = cancelPrompt;
+            CancelPrompt = cancelPrompt;
         }
 
-        public string DefaultCancelPrompt { get; private set; }
+        public string DefaultCancelPrompt { get; }
 
-        public string CancelPrompt { get; private set; }
+        public string CancelPrompt { get; }
     }
 }

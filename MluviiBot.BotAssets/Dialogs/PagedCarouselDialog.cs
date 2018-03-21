@@ -11,17 +11,17 @@ namespace MluviiBot.BotAssets.Dialogs
     public abstract class PagedCarouselDialog<T> : IDialog<T>
     {
         private int pageNumber = 1;
-        private int pageSize = 5;
+        private readonly int pageSize = 5;
 
         public virtual string Prompt { get; }
 
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync(this.Prompt ?? Resources.PagedCarouselDialog_DefaultPrompt);
+            await context.PostAsync(Prompt ?? Resources.PagedCarouselDialog_DefaultPrompt);
 
-            await this.ShowProducts(context);
+            await ShowProducts(context);
 
-            context.Wait(this.MessageReceivedAsync);
+            context.Wait(MessageReceivedAsync);
         }
 
         public abstract PagedCarouselCards GetCarouselCards(int pageNumber, int pageSize);
@@ -34,18 +34,12 @@ namespace MluviiBot.BotAssets.Dialogs
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
             reply.Attachments = new List<Attachment>();
 
-            var productsResult = this.GetCarouselCards(this.pageNumber, this.pageSize);
-            foreach (HeroCard productCard in productsResult.Cards)
-            {
-                reply.Attachments.Add(productCard.ToAttachment());
-            }
+            var productsResult = GetCarouselCards(pageNumber, pageSize);
+            foreach (var productCard in productsResult.Cards) reply.Attachments.Add(productCard.ToAttachment());
 
             await context.PostAsync(reply);
 
-            if (productsResult.TotalCount > this.pageNumber * this.pageSize)
-            {
-                await this.ShowMoreOptions(context);
-            }
+            if (productsResult.TotalCount > pageNumber * pageSize) await ShowMoreOptions(context);
         }
 
         protected async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
@@ -55,12 +49,12 @@ namespace MluviiBot.BotAssets.Dialogs
             // TODO: validation
             if (message.Text.Equals(Resources.PagedCarouselDialog_ShowMe, StringComparison.InvariantCultureIgnoreCase))
             {
-                this.pageNumber++;
-                await this.StartAsync(context);
+                pageNumber++;
+                await StartAsync(context);
             }
             else
             {
-                await this.ProcessMessageReceived(context, message.Text);
+                await ProcessMessageReceived(context, message.Text);
             }
         }
 
@@ -69,12 +63,13 @@ namespace MluviiBot.BotAssets.Dialogs
             var moreOptionsReply = context.MakeMessage();
             moreOptionsReply.Attachments = new List<Attachment>
             {
-                    new HeroCard()
+                new HeroCard
                 {
                     Text = Resources.PagedCarouselDialog_MoreOptions,
                     Buttons = new List<CardAction>
                     {
-                        new CardAction(ActionTypes.ImBack, Resources.PagedCarouselDialog_ShowMe, value: Resources.PagedCarouselDialog_ShowMe)
+                        new CardAction(ActionTypes.ImBack, Resources.PagedCarouselDialog_ShowMe,
+                            value: Resources.PagedCarouselDialog_ShowMe)
                     }
                 }.ToAttachment()
             };

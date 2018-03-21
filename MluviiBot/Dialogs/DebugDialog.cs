@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using MluviiBot.BotAssets.Dialogs;
 using MluviiBot.Models;
+
 #pragma warning disable 1998
 
 namespace MluviiBot.Dialogs
 {
-    public class DebugDialog: IDialog
+    public class DebugDialog : IDialog
     {
         private readonly IDialogFactory dialogFactory;
 
@@ -24,9 +25,9 @@ namespace MluviiBot.Dialogs
                     Enum.TryParse<DebugOptions>(choice, out var selected);
                     var dialog = dialogFactory.Create<MluviiDialog, DebugOptions>(selected);
                     dialogContext.Call(dialog, null);
-            },
-            new [] {"GotoFinalConfirmation","GotoOperatorSearch", "GotoMap"},
-            "DEBUG MENU");
+                },
+                new[] {"GotoFinalConfirmation", "GotoOperatorSearch", "GotoMap"},
+                "DEBUG MENU");
         }
     }
 }
