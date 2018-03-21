@@ -122,9 +122,6 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
-  <data name="RetryText" xml:space="preserve">
-    <value>Nerozuměl jsem, můžeš mi to napsat ještě jednou?</value>
-  </data>
   <data name="RootDialog_Checkout_Cancel" xml:space="preserve">
     <value>Zpet</value>
   </data>
