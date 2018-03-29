@@ -22,7 +22,8 @@ namespace DotsBot.Dialogs
             PromptDialog.Choice(context, async (dialogContext, result) =>
                 {
                     var choice = await result;
-                    Enum.TryParse<DebugOptions>(choice, out var selected);
+                    DebugOptions selected;
+                    Enum.TryParse<DebugOptions>(choice, out selected);
                     var dialog = dialogFactory.Create<MainDialog, DebugOptions>(selected);
                     dialogContext.Call(dialog, null);
                 },
