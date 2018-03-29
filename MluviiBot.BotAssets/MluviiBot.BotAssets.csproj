@@ -102,6 +102,7 @@
     <Compile Include="Dialogs\PromptStringRegex.cs" />
     <Compile Include="Extensions\HeroCardExtensions.cs" />
     <Compile Include="Models\AvailableOperatorInfo.cs" />
+    <Compile Include="Models\GetCallParamsResponse.cs" />
     <Compile Include="Models\CrmEntity.cs" />
     <Compile Include="Models\DebugOptions.cs" />
     <Compile Include="Models\Order.cs" />

@@ -5,12 +5,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
+using iCord.OnifWebLib.Linq;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
 using MluviiBot.BLL;
+using MluviiBot.BotAssets;
 using MluviiBot.BotAssets.Extensions;
+using MluviiBot.BotAssets.Models;
+using MluviiBot.Dialogs;
 using MluviiBot.Properties;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MluviiBot.Controllers
 {
@@ -27,7 +33,7 @@ namespace MluviiBot.Controllers
             {
                 if (activity.Type == ActivityTypes.Message || activity.Type == ActivityTypes.Event)
                 {
-                    var dialog = scope.Resolve<IDialog<object>>();
+                    var dialog = scope.Resolve<EntryDialog>();
                     await Conversation.SendAsync(activity, () => dialog);
                 }
                 else
@@ -40,6 +46,31 @@ namespace MluviiBot.Controllers
 
         private async Task HandleSystemMessage(Activity message, ILifetimeScope scope)
         {
+//            if (message.Type == ActivityTypes.Event && message.ChannelData != null)
+//            {
+//                var callParams = JsonConvert.DeserializeObject<GetCallParamsResponse>(message.ChannelData.ToString());
+//                var personId = callParams.CallParams.ValueOrDefault(ClientCallPredefParam.FACE_API_PERSON_ID);
+//                if (personId != null)
+//                {
+//                    var crmService = scope.Resolve<ICrmService>();
+//                    var crmEntity = crmService.GetCrmData(personId);
+//                    if (crmEntity != null)
+//                    {
+//                        var client = new ConnectorClient(new Uri(message.ServiceUrl), new MicrosoftAppCredentials());
+//                        var reply = message.CreateReply();
+//                        reply.AddHeroCard(
+//                            crmEntity.Order.ProductName,
+//                            string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
+//                            new[]
+//                            {
+//                                Resources.WelcomeMessage_operator,
+//                                Resources.MluviiDialog_virtual_assistant
+//                            },
+//                            crmEntity.Order.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
+//                        await client.Conversations.ReplyToActivityAsync(reply);
+//                    }
+//                }
+//            }
             if (message.Type == ActivityTypes.DeleteUserData)
             {
                 // Implement user deletion here
@@ -55,33 +86,22 @@ namespace MluviiBot.Controllers
                 var memberAccount = message.MembersAdded.FirstOrDefault(o => o.Id == message.Recipient.Id);
                 if (memberAccount != null)
                 {
-                    var crmService = scope.Resolve<ICrmService>();
-                    var crmEntity = crmService.GetCrmData(memberAccount.Id);
                     var client = new ConnectorClient(new Uri(message.ServiceUrl), new MicrosoftAppCredentials());
                     var reply = message.CreateReply();
-                    reply.AddHeroCard(
-                        crmEntity.Order.ProductName,
-                        string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
-                        new[]
-                        {
-                            Resources.WelcomeMessage_operator,
-                            Resources.MluviiDialog_virtual_assistant
-                        },
-                        new[] {crmEntity.Order.ProductPhotoUrl});
+                    reply.Type = "event";
+                    var data = JObject.Parse(@"{ ""Activity"": ""GetCallParams"" }");
+                    reply.ChannelData = data;
                     await client.Conversations.ReplyToActivityAsync(reply);
                 }
-                else if (message.Type == ActivityTypes.ContactRelationUpdate)
-                {
-                    // Handle add/remove from contact lists
-                    // Activity.From + Activity.Action represent what happened
-                }
-                else if (message.Type == ActivityTypes.Typing)
-                {
-                    // Handle knowing tha the user is typing
-                }
-                else if (message.Type == ActivityTypes.Ping)
-                {
-                }
+            }
+            else if (message.Type == ActivityTypes.ContactRelationUpdate)
+            {
+                // Handle add/remove from contact lists
+                // Activity.From + Activity.Action represent what happened
+            }
+            else if (message.Type == ActivityTypes.Typing)
+            {
+                // Handle knowing tha the user is typing
             }
         }
     }

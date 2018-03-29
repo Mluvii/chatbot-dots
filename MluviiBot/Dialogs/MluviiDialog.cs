@@ -27,16 +27,38 @@ namespace MluviiBot.Dialogs
         private readonly ICrmService crmService;
         private ConversationReference conversationReference;
         private CrmEntity crmEntity;
+        private string personId;
+        private static string johnDoePersonId = "00000000-0000-0000-0000-000000000001";
 
-        public MluviiDialog(IDialogFactory dialogFactory, ICrmService crmService, DebugOptions debugOptions = DebugOptions.None)
+        public MluviiDialog(IDialogFactory dialogFactory, ICrmService crmService, string personId, DebugOptions debugOptions = DebugOptions.None)
         {
             this.dialogFactory = dialogFactory;
             this.crmService = crmService;
+            this.personId = personId;
             this.debugOptions = debugOptions;
         }
 
         public async Task StartAsync(IDialogContext context)
         {
+            if (personId == null)
+            {
+                personId = johnDoePersonId;
+            }
+            crmEntity = crmService.GetCrmData(personId);
+            if (crmEntity != null)
+            {
+                var reply = context.MakeMessage();
+                reply.AddHeroCard(
+                    crmEntity.Order.ProductName,
+                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
+                    new[]
+                    {
+                        Resources.WelcomeMessage_operator,
+                        Resources.MluviiDialog_virtual_assistant
+                    },
+                    crmEntity.Order.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
+                await context.PostAsync(reply);
+            }
             context.Wait(MessageReceivedAsync);
         }
 
@@ -49,6 +71,7 @@ namespace MluviiBot.Dialogs
             catch (TooManyAttemptsException)
             {
                 context.Call(dialogFactory.Create<HelpDialog, bool>(false), null);
+                return;
             }
 
             var message = await result;
@@ -272,6 +295,15 @@ namespace MluviiBot.Dialogs
             await context.PostAsync(act);
         }
         
+        private async Task AskCallParams(IDialogContext context)
+        {
+            var data = JObject.Parse(@"{ ""Activity"": ""GetCallParams"" }");
+
+            var act = context.MakeMessage();
+            act.ChannelData = data;
+            await context.PostAsync(act);
+        }
+        
 
         private async void SetCallParams(IDialogContext context)
         {
@@ -281,9 +313,9 @@ namespace MluviiBot.Dialogs
                 {ClientCallPredefParam.GUEST_EMAIL, crmEntity.Email},
                 {ClientCallPredefParam.GUEST_PHONE, crmEntity.Phone},
             };
-            var CallParams = JObject.FromObject(dict);
+            var callParams = JObject.FromObject(dict);
             var data = JObject.Parse(@"{ ""Activity"": ""SetCallParams"" }");
-            data.Add("CallParams", CallParams);
+            data.Add("CallParams", callParams);
 
             var act = context.MakeMessage();
             act.ChannelData = data;

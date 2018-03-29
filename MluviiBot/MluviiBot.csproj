@@ -180,16 +180,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\FakeCrmService.cs" />
-    <Compile Include="Dialogs\DebugDialog.cs" />
-    <Compile Include="Dialogs\DebugScorable.cs" />
+    <Compile Include="Dialogs\EntryDialog.cs" />
     <Compile Include="Dialogs\HandoverDialog.cs" />
-    <Compile Include="Dialogs\HelpDialog.cs" />
-    <Compile Include="Dialogs\HelpScorable.cs" />
     <Compile Include="Dialogs\AvailibleOperatorsDialog.cs" />
+    <Compile Include="Interjections\DebugDialog.cs" />
+    <Compile Include="Interjections\DebugScorable.cs" />
+    <Compile Include="Interjections\HelpDialog.cs" />
+    <Compile Include="Interjections\HelpScorable.cs" />
     <Compile Include="MluviiBotModule.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\MluviiDialog.cs" />
-    <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

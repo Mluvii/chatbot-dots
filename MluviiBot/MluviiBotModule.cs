@@ -23,11 +23,10 @@ namespace MluviiBot
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<RootDialog>()
-                .As<IDialog<object>>()
+            builder.RegisterType<MluviiDialog>()
                 .InstancePerDependency();
             
-            builder.RegisterType<MluviiDialog>()
+            builder.RegisterType<EntryDialog>()
                 .InstancePerDependency();
             
             builder.RegisterType<FakeCrmService>()
