@@ -41,31 +41,6 @@ namespace DotsBot.Controllers
 
         private async Task HandleSystemMessage(Activity message, ILifetimeScope scope)
         {
-//            if (message.Type == ActivityTypes.Event && message.ChannelData != null)
-//            {
-//                var callParams = JsonConvert.DeserializeObject<GetCallParamsResponse>(message.ChannelData.ToString());
-//                var personId = callParams.CallParams.ValueOrDefault(ClientCallPredefParam.FACE_API_PERSON_ID);
-//                if (personId != null)
-//                {
-//                    var crmService = scope.Resolve<ICrmService>();
-//                    var crmEntity = crmService.GetCrmData(personId);
-//                    if (crmEntity != null)
-//                    {
-//                        var client = new ConnectorClient(new Uri(message.ServiceUrl), new MicrosoftAppCredentials());
-//                        var reply = message.CreateReply();
-//                        reply.AddHeroCard(
-//                            crmEntity.Order.ProductName,
-//                            string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
-//                            new[]
-//                            {
-//                                Resources.WelcomeMessage_operator,
-//                                Resources.MluviiDialog_virtual_assistant
-//                            },
-//                            crmEntity.Order.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
-//                        await client.Conversations.ReplyToActivityAsync(reply);
-//                    }
-//                }
-//            }
             if (message.Type == ActivityTypes.DeleteUserData)
             {
                 // Implement user deletion here

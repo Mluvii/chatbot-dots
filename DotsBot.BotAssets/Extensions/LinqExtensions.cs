@@ -16,7 +16,8 @@ namespace iCord.OnifWebLib.Linq
 
         public static TV ValueOrDefault<TK, TV>(this IDictionary<TK, TV> dict, TK key, TV defaultValue = default(TV))
         {
-            return dict.TryGetValue(key, out var value) ? value : defaultValue;
+            TV value;
+            return dict.TryGetValue(key, out value) ? value : defaultValue;
         }
     }
 }
