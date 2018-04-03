@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using DotsBot.BotAssets;
 using DotsBot.BotAssets.Dialogs;
 using DotsBot.BotAssets.Models;
-using DotsBot.Models;
-using DotsBot.Properties;
+using iCord.OnifWebLib.Linq;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
@@ -28,18 +27,14 @@ namespace DotsBot.Dialogs
             context.Wait(OnMessageRecieved);
         }
 
-
         private async Task OnMessageRecieved(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var activity = await result;
-
             if (activity.AsEventActivity() != null && activity.ChannelData != null)
                 try
                 {
-                    var callParamsResponse =
-                        JsonConvert.DeserializeObject<GetCallParamsResponse>(activity.ChannelData.ToString());
-                    var personId =
-                        callParamsResponse.CallParams.ValueOrDefault(ClientCallPredefParam.FACE_API_PERSON_ID);
+                    var callParamsResponse = JsonConvert.DeserializeObject<GetCallParamsResponse>((string)activity.ChannelData.ToString());
+                    var personId = callParamsResponse.CallParams.ValueOrDefault(ClientCallPredefParam.FACE_API_PERSON_ID);
                     if (personId != null)
                     {
                         context.Call(dialogFactory.Create<MainDialog, string>(personId), null);

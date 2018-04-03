@@ -45,14 +45,14 @@ namespace DotsBot.Dialogs
                 SetCallParams(context);
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
-                    crmEntity.Order.ProductName,
+                    null,
                     string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
                     new[]
                     {
                         Resources.WelcomeMessage_operator,
                         Resources.MluviiDialog_virtual_assistant
                     },
-                    crmEntity.Order.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
+                    crmEntity.Order?.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
                 await context.PostAsync(reply);
                 context.Wait(MessageReceivedAsync);
                 return;
@@ -75,11 +75,10 @@ namespace DotsBot.Dialogs
             }
 
             var message = await result;
-
             //Some bug in PromptDialog.Choice causes message.Type to be null
             if (message.Text == null) //message.Type != ActivityTypes.Message)
             {
-                await StartAsync(context);
+                context.Wait(MessageReceivedAsync);
                 return;
             }
 
