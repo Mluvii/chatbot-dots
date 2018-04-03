@@ -27,6 +27,19 @@ namespace DotsBot.BLL
                 }
             },
             {
+                "c82c8fe2-69c2-4ecf-9e3b-ae0e6d963617", new CrmEntity
+                {
+                    FirstName = "Yury",
+                    LastName = "Nudga",
+                    Order = new Order
+                    {
+                        ProductName = "Mydlo",
+                        ProductPhotoUrl = "https://images-na.ssl-images-amazon.com/images/I/61onlmYlhxL._SX466_.jpg",
+                        ProductPrice = new decimal(7.50)
+                    }
+                }
+            },
+            {
                 "00000000-0000-0000-0000-000000000001", new CrmEntity
                 {
                     FirstName = "Jan",
