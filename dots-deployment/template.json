@@ -1,0 +1,360 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_dotswebsite_name": {
+            "defaultValue": "dotswebsite",
+            "type": "String"
+        },
+        "sites_dotsfaceapi_name": {
+            "defaultValue": "dotsfaceapi",
+            "type": "String"
+        },
+        "sites_dotsbotapp_name": {
+            "defaultValue": "dotsbot",
+            "type": "String"
+        },
+        "serverfarms_dotsserverfarm_name": {
+            "defaultValue": "dotsserverfarm",
+            "type": "String"
+        },
+        "storageAccounts_dotsfaceapistorage_name": {
+            "defaultValue": "dotsfaceapistorage",
+            "type": "String"
+        },
+        "storageAccounts_dotsbotstorage_name": {
+            "defaultValue": "dotsbotstorage",
+            "type": "String"
+        },
+        "FaceApiRootUrl": {
+            "type": "String"
+        },
+        "FaceApiKey": {
+            "type": "String"
+        },
+        "FaceApiPersonGroup": {
+            "type": "String"
+        },
+        "appId": {
+            "type": "String"
+        },
+        "appSecret": {
+            "type": "String"
+        },
+		"dotsBotId": {
+			"defaultValue": "dotsBot612",
+            "type": "String"
+        },
+		"dotsBotDisplayName": {
+			"defaultValue": "DOTS Bot",
+            "type": "String"
+        }
+    },
+    "variables": {
+		"dotsGitUrl": "https://github.com/Mluvii/dots.git",
+		"dotsWebsiteUrl": "[concat('https://', parameters('sites_dotswebsite_name'),'.azurewebsites.net')]",
+		"dotsBotUrl": "[concat(parameters('sites_dotsbotapp_name'), '.azurewebsites.net')]",
+        "botAppKind": "[variables('botAppKinds')['sdk']]",
+		"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_dotsserverfarm_name'))]",
+		"dotsBotStorageId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dotsbotstorage_name'))]",
+		"botAppKinds": {
+				"function": "functionapp",
+				"sdk": "app",
+				"designer": "app",
+				"bot": ""
+		},
+		"config": {
+            "stateEndpoint": "",
+			"azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.botframework.com/",
+			"blobStoreName": "connectorprod",
+			"openIdMetadata": ""
+        },
+		"botEndpoint": "[concat('https://', variables('dotsBotUrl'), '/api/messages')]"
+	},
+    "resources": [
+		{
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_dotsbotstorage_name')]",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "accountType": "Standard-LRS",
+                "supportsHttpsTrafficOnly": true
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_dotsfaceapistorage_name')]",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "accountType": "Standard-LRS"
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms_dotsserverfarm_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('serverfarms_dotsserverfarm_name')]"
+            }
+        },
+        {
+			"apiVersion": "2015-08-01",
+			"name": "[parameters('sites_dotsfaceapi_name')]",
+			"type": "Microsoft.Web/sites",
+			"kind": "functionapp",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dotsfaceapistorage_name'))]",
+				"[variables('serverFarmId')]"
+			],
+			"properties": {
+				"serverFarmId": "[variables('serverFarmId')]",
+				"siteConfig": {
+					"alwaysOn": true,
+					"appSettings": [
+						{
+							"name": "FUNCTIONS_EXTENSION_VERSION",
+							"value": "~1"
+						},
+						{
+                            "name": "FaceApiRootUrl",
+                            "value": "[parameters('FaceApiRootUrl')]"
+                        },
+                        {
+                            "name": "FaceApiKey",
+                            "value": "[parameters('FaceApiKey')]"
+                        },
+                        {
+                            "name": "FaceApiPersonGroup",
+                            "value": "[parameters('FaceApiPersonGroup')]"
+                        },
+						{ 
+							"name": "Project",
+							"value": "dots-faceapi/DtsFaceApi/DtsFaceApi.csproj" 
+						}
+					],
+					"cors": {
+							"allowedOrigins": [
+								"[variables('dotsWebsiteUrl')]"
+							]
+						}
+				}
+			},
+			"resources": [
+				{
+					"apiVersion": "2015-08-01",
+					"name": "appsettings",
+					"type": "config",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/Sites', parameters('sites_dotsfaceapi_name'))]",
+						"[resourceId('Microsoft.Web/Sites/sourcecontrols', parameters('sites_dotsfaceapi_name'), 'web')]",
+						"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dotsfaceapistorage_name'))]"
+					],
+					"properties": {
+						"AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]",
+						"AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]"
+					}
+				},
+				{
+					"apiVersion": "2015-08-01",
+					"name": "web",
+					"type": "sourcecontrols",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/sites/', parameters('sites_dotsfaceapi_name'))]"
+					],
+					"properties": {
+						"RepoUrl": "[variables('dotsGitUrl')]",
+						"branch": "master",
+						"IsManualIntegration": true
+					}
+				}
+			]
+
+		},
+        {
+            "name": "[parameters('sites_dotsbotapp_name')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "kind": "[variables('botAppKind')]",
+            "dependsOn": [
+                "[variables('serverFarmId')]"
+            ],
+            "properties": {
+                "name": "[parameters('sites_dotsbotapp_name')]",
+                "serverFarmId": "[variables('serverFarmId')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccounts_dotsbotstorage_name'),';AccountKey=',listkeys(variables('dotsBotStorageId'), '2015-05-01-preview').key1,';')]"
+                        },
+                        {
+                            "name": "AzureWebJobsDashboard",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccounts_dotsbotstorage_name'),';AccountKey=',listkeys(variables('dotsBotStorageId'), '2015-05-01-preview').key1,';')]"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "6.9.1"
+                        },
+                        {
+                            "name": "dotsBotId",
+                            "value": "[parameters('sites_dotsbotapp_name')]"
+                        },
+                        {
+                            "name": "MicrosoftAppId",
+                            "value": "[parameters('appId')]"
+                        },
+                        {
+                            "name": "MicrosoftAppPassword",
+                            "value": "[parameters('appSecret')]"
+                        },
+                        {
+                            "name": "BotStateEndpoint",
+                            "value": "[variables('config').stateEndpoint]"
+                        },
+                        {
+                            "name": "BotOpenIdMetadata",
+                            "value": "[variables('config').openIdMetadata]"
+                        },
+                        {
+                            "name": "UseTableStorageForConversationState",
+                            "value": "true"
+                        },
+						{ 
+							"name": "Project",
+							"value": "dots-chatbot/DotsBot/DotsBot.csproj"
+						}
+                    ],
+                    "cors": {
+                        "allowedOrigins": [
+                            "https://botservice.hosting.portal.azure.net",
+                            "https://hosting.onecloud.azure-test.net/"
+                        ]
+                    }
+                }
+            },
+            "resources": [
+				{
+					"apiVersion": "2015-08-01",
+					"name": "web",
+					"type": "sourcecontrols",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/sites/', parameters('sites_dotsbotapp_name'))]"
+					],
+					"properties": {
+						"RepoUrl": "[variables('dotsGitUrl')]",
+						"branch": "master",
+						"IsManualIntegration": true
+					}
+				}
+            ]
+        },
+		{
+            "apiVersion": "2017-12-01",
+            "type": "Microsoft.BotService/botServices",
+            "name": "[parameters('dotsBotId')]",
+            "location": "global",
+            "kind": "[variables('botAppKind')]",
+            "sku": {
+                "name": "F0"
+            },
+            "properties": {
+                "name": "[parameters('dotsBotId')]",
+                "displayName": "[parameters('dotsBotDisplayName')]",
+                "endpoint": "[variables('botEndpoint')]",
+                "msaAppId": "[parameters('appId')]",
+				"enabledChannels": [
+                    "webchat",
+                    "directline"
+                ],
+                "configuredChannels": [
+                    "webchat",
+                    "directline"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_dotsserverfarm_name'))]",
+                "[resourceId('Microsoft.Web/sites/', parameters('sites_dotsbotapp_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "app,linux",
+            "name": "[parameters('sites_dotswebsite_name')]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [{
+                        "name": "[concat(parameters('sites_dotswebsite_name'),'.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_dotswebsite_name'),'.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[variables('serverFarmId')]",
+                "reserved": true,
+                "siteConfig": {
+                    "appSettings": [
+						{ 
+							"name": "Project",
+							"value": "dots-website" 
+						}
+					]
+				},
+                "scmSiteAlsoStopped": false,
+                "hostingEnvironmentProfile": null,
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "cloningInfo": null
+            },
+			"resources": [
+				{
+					"apiVersion": "2015-08-01",
+					"name": "web",
+					"type": "sourcecontrols",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/sites/', parameters('sites_dotswebsite_name'))]"
+					],
+					"properties": {
+						"RepoUrl": "[variables('dotsGitUrl')]",
+						"branch": "master",
+						"IsManualIntegration": true
+					}
+				}
+            ],
+            "dependsOn": [
+                "[variables('serverFarmId')]"
+            ]
+        }
+    ]
+}
