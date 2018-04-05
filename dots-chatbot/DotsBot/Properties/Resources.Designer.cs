@@ -295,7 +295,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dobrý den, {0},
+        ///   Looks up a localized string similar to {0},
         ///přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?
         ///    .
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using Autofac;
 using DotsBot.BLL;
 using DotsBot.BotAssets.Dialogs;
 using DotsBot.Dialogs;
@@ -25,8 +26,11 @@ namespace DotsBot
             builder.RegisterType<EntryDialog>()
                 .InstancePerDependency();
 
-            builder.RegisterType<FakeCrmService>()
+            builder.RegisterType<CrmService>()
                 .As<ICrmService>()
+                .WithParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(string),
+                    (pi, ctx) => ConfigurationManager.AppSettings[pi.Name])
                 .InstancePerDependency();
 
             builder.RegisterType<HandoverDialog>()

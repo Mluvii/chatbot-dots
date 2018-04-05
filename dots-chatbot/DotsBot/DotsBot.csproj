@@ -180,7 +180,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\CrmService.cs" />
     <Compile Include="BLL\FakeCrmService.cs" />
+    <Compile Include="BLL\ICrmService.cs" />
     <Compile Include="Dialogs\EntryDialog.cs" />
     <Compile Include="Dialogs\HandoverDialog.cs" />
     <Compile Include="Dialogs\AvailibleOperatorsDialog.cs" />

@@ -141,7 +141,7 @@
     <value>Zpět</value>
   </data>
     <data name="WelcomeMessage_prompt" xml:space="preserve">
-    <value>Dobrý den, {0},
+    <value>{0},
 přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?
     </value>
   </data>

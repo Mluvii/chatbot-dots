@@ -16,10 +16,9 @@ using Newtonsoft.Json.Linq;
 #pragma warning disable 1998
 namespace DotsBot.Dialogs
 {
-    public class MainDialog : IDialog<Order>
+    public class MainDialog : IDialog<Product>
     {
         private const int MaxAttempts = 5;
-        private static readonly string johnDoePersonId = "00000000-0000-0000-0000-000000000001";
         private readonly ICrmService crmService;
         private readonly DebugOptions debugOptions;
         private readonly IDialogFactory dialogFactory;
@@ -38,23 +37,24 @@ namespace DotsBot.Dialogs
 
         public async Task StartAsync(IDialogContext context)
         {
-            if (personId == null) personId = johnDoePersonId;
-            if (crmEntity == null) crmEntity = crmService.GetCrmData(personId);
+            if (personId == null) personId = Customer.DefaultPersonId;
+            if (crmEntity == null) crmEntity = await crmService.GetCrmData(personId);
             if (crmEntity != null)
             {
                 SetCallParams(context);
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
                     null,
-                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
+                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
                     new[]
                     {
                         Resources.WelcomeMessage_operator,
                         Resources.MluviiDialog_virtual_assistant
                     },
-                    crmEntity.Order?.ProductPhotoUrl != null ? new[] {crmEntity.Order.ProductPhotoUrl} : null);
+                    crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
                 await context.PostAsync(reply);
                 context.Wait(MessageReceivedAsync);
+                
                 return;
             }
 
@@ -114,7 +114,7 @@ namespace DotsBot.Dialogs
                     await MessageReceivedAsync(dialogContext, new AwaitableFromItem<IMessageActivity>(fakeMessage));
                 },
                 new[] {Resources.WelcomeMessage_operator, Resources.MluviiDialog_virtual_assistant},
-                string.Format(Resources.WelcomeMessage_prompt, crmEntity.FullName, crmEntity.Order?.ProductName),
+                string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
                 Resources.RetryText, MaxAttempts);
         }
 
@@ -137,13 +137,13 @@ namespace DotsBot.Dialogs
             }
 
             var instalmentCount = await result;
-            var interest = 1.0;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Order.ProductPrice, interest);
+            var interest = crmEntity.Product.InterestRate;
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice, interest);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 "",
-                string.Format(Resources.MluviiDialog_product_offer, crmEntity.Order.ProductName,
-                    crmEntity.Order.ProductPrice, emi, interest / 100),
+                string.Format(Resources.MluviiDialog_product_offer, crmEntity.Product.ProductName,
+                    crmEntity.Product.ProductPrice, emi, interest / 100),
                 new[]
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
@@ -151,7 +151,7 @@ namespace DotsBot.Dialogs
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
                     Resources.MluviiDialog_product_offer_choice_offer_no_good
                 },
-                new[] {crmEntity.Order.ProductPhotoUrl});
+                new[] {crmEntity.Product.ProductPhotoUrl});
 
             await context.PostAsync(reply);
             context.Wait(ProductOfferReacted);
@@ -210,15 +210,15 @@ namespace DotsBot.Dialogs
 
             var message = await result;
 
-            if (message.ContainsIgnoreCaseAndAccents(crmEntity.FirstName) &&
-                message.ContainsIgnoreCaseAndAccents(crmEntity.LastName))
+            if (message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.FirstName) &&
+                message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.LastName))
             {
-                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Email,
-                    crmEntity.Order.ProductName));
+                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email,
+                    crmEntity.Product.ProductName));
                 return;
             }
 
-            if (crmEntity.SignAttempts-- < 1)
+            if (crmEntity.Customer.SignAttempts-- < 1)
             {
                 await CheckAvailableOperators(context);
                 return;
@@ -302,9 +302,9 @@ namespace DotsBot.Dialogs
         {
             var dict = new Dictionary<string, string>
             {
-                {ClientCallPredefParam.GUEST_IDENTITY, crmEntity.FullName},
-                {ClientCallPredefParam.GUEST_EMAIL, crmEntity.Email},
-                {ClientCallPredefParam.GUEST_PHONE, crmEntity.Phone}
+                {ClientCallPredefParam.GUEST_IDENTITY, crmEntity.Customer.FullName},
+                {ClientCallPredefParam.GUEST_EMAIL, crmEntity.Customer.Email},
+                {ClientCallPredefParam.GUEST_PHONE, crmEntity.Customer.Phone}
             };
             var callParams = JObject.FromObject(dict);
             var data = JObject.Parse(@"{ ""Activity"": ""SetCallParams"" }");

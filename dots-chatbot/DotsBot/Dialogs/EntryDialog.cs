@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DotsBot.BotAssets;
 using DotsBot.BotAssets.Dialogs;
+using DotsBot.BotAssets.Extensions;
 using DotsBot.BotAssets.Models;
 using iCord.OnifWebLib.Linq;
 using Microsoft.Bot.Builder.Dialogs;
@@ -30,6 +31,11 @@ namespace DotsBot.Dialogs
         private async Task OnMessageRecieved(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var activity = await result;
+            if (activity.AsMessageActivity() != null && activity.Text.ContainsAnyIgnoreCaseAndAccents("erik"))
+            {
+                context.Call(dialogFactory.Create<MainDialog, string>(null), null);
+                return;
+            }
             if (activity.AsEventActivity() != null && activity.ChannelData != null)
                 try
                 {

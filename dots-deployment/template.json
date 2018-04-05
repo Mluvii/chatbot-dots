@@ -2,7 +2,34 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_dotswebsite_name": {
+        "FaceApiRootUrl": {
+			"defaultValue": "https://westeurope.api.cognitive.microsoft.com/face/v1.0",
+            "type": "String"
+        },
+        "FaceApiKey": {
+            "type": "String"
+        },
+        "FaceApiPersonGroup": {
+            "type": "String"
+        },
+        "appId": {
+            "type": "String"
+        },
+        "appSecret": {
+            "type": "String"
+        }
+		,"crmUrl": {
+            "type": "String"
+        },
+		"dotsBotId": {
+			"defaultValue": "dotsBot",
+            "type": "String"
+        },
+		"dotsBotDisplayName": {
+			"defaultValue": "DOTS Bot",
+            "type": "String"
+        },
+		"sites_dotswebsite_name": {
             "defaultValue": "dotswebsite",
             "type": "String"
         },
@@ -24,29 +51,6 @@
         },
         "storageAccounts_dotsbotstorage_name": {
             "defaultValue": "dotsbotstorage",
-            "type": "String"
-        },
-        "FaceApiRootUrl": {
-            "type": "String"
-        },
-        "FaceApiKey": {
-            "type": "String"
-        },
-        "FaceApiPersonGroup": {
-            "type": "String"
-        },
-        "appId": {
-            "type": "String"
-        },
-        "appSecret": {
-            "type": "String"
-        },
-		"dotsBotId": {
-			"defaultValue": "dotsBot612",
-            "type": "String"
-        },
-		"dotsBotDisplayName": {
-			"defaultValue": "DOTS Bot",
             "type": "String"
         }
     },
@@ -242,6 +246,10 @@
                             "name": "UseTableStorageForConversationState",
                             "value": "true"
                         },
+						{ 
+							"name": "CrmUrl",
+							"value": "[parameters('crmUrl')]"
+						}
 						{ 
 							"name": "Project",
 							"value": "dots-chatbot/DotsBot/DotsBot.csproj"

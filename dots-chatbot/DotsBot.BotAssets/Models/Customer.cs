@@ -1,0 +1,19 @@
+﻿namespace DotsBot.BotAssets.Models
+{
+    public class Customer
+    {
+        public static string DefaultPersonId  => "00000000-0000-0000-0000-000000000001";
+        
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
+
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+        
+        public int SignAttempts { get; set; } = 3;
+    }
+}
