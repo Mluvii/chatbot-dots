@@ -29,7 +29,13 @@ namespace DtsFaceApi
             bool isDebug = false;
             bool johnDoe = true;
             //if (req.RequestUri.Query.Contains("debug")) isDebug = true;
-            //if (req.RequestUri.Query.Contains("johnDoeDisabled")) johnDoe = false;
+            if (req.RequestUri.Query.Contains("johnDoeDisabled")) johnDoe = false;
+            var echoIds = req.GetQueryNameValuePairs().Where(kvp => kvp.Key.Equals("echoId", StringComparison.OrdinalIgnoreCase));
+            if (echoIds.Any())
+            {
+                HttpResponseMessage resp = await GetResponse(req, isDebug, null, johnDoePersonId, "John Doe", echoIds.First().Value);
+                return resp;
+            }
 
             var stream = await req.Content.ReadAsStreamAsync();
             if (stream.Length != 0)
@@ -61,11 +67,19 @@ namespace DtsFaceApi
             return req.CreateResponse(HttpStatusCode.NoContent);
         }
 
-        private static async Task<HttpResponseMessage> GetResponse(HttpRequestMessage req, bool isDebug, FaceServiceClient faceService, Guid personId, string personName = null)
+        private static async Task<HttpResponseMessage> GetResponse(HttpRequestMessage req, bool isDebug, FaceServiceClient faceService, Guid personId, string personName = null, string echoId = null)
         {
             var resp = req.CreateResponse(HttpStatusCode.OK);
             dynamic respConent = new ExpandoObject();
-            respConent.PersonId = personId.ToString();
+            
+            if(echoId != null)
+            {
+                respConent.PersonId = echoId;
+            }
+            else
+            {
+                respConent.PersonId = personId.ToString();
+            }
             if (isDebug)
             {
                 if(personName != null)
