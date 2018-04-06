@@ -25,6 +25,7 @@ namespace DotsBot.Dialogs
         private ConversationReference conversationReference;
         private CrmEntity crmEntity;
         private string personId;
+        private readonly double? defaultInterestRate = 1.0;
 
         public MainDialog(IDialogFactory dialogFactory, ICrmService crmService, string personId,
             DebugOptions debugOptions = DebugOptions.None)
@@ -138,7 +139,7 @@ namespace DotsBot.Dialogs
 
             var instalmentCount = await result;
             var interest = crmEntity.Product.InterestRate;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice, interest);
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? new decimal(399), interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 "",
@@ -147,7 +148,6 @@ namespace DotsBot.Dialogs
                 new[]
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
-                    Resources.MluviiDialog_product_offer_choice_sign_offline,
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
                     Resources.MluviiDialog_product_offer_choice_offer_no_good
                 },
@@ -167,12 +167,6 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("pobocce", "osobne"))
-            {
-                await SignOfflineSelected(context);
-                return;
-            }
-
             if (choice.Text.ContainsAnyIgnoreCaseAndAccents("operator"))
             {
                 await CheckAvailableOperators(context);
@@ -183,7 +177,23 @@ namespace DotsBot.Dialogs
             {
                 await context.SayAsync(Resources.MluviiDialog_product_offer_choice_offer_no_good_selected);
                 await CheckAvailableOperators(context);
+                return;
             }
+            
+            PromptDialog.Choice(context, async (dialogContext, subResult) =>
+                {
+                    var fakeMessage = dialogContext.MakeMessage();
+                    fakeMessage.Text = await subResult;
+                    await ProductOfferReacted(dialogContext, new AwaitableFromItem<IMessageActivity>(fakeMessage));
+                },
+                new[]
+                {
+                    Resources.MluviiDialog_product_offer_choice_sign_online,
+                    Resources.MluviiDialog_product_offer_choice_not_tincans,
+                    Resources.MluviiDialog_product_offer_choice_offer_no_good
+                },
+                string.Format(Resources.RetryText),
+                Resources.RetryText, MaxAttempts);
         }
 
         private async Task SignOnlineSelected(IDialogContext context)
