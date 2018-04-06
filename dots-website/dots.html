@@ -6,6 +6,7 @@
         <script src="ccv/face.js"></script>
     </head>
     <body>
+		<div style="height:100%; width:100%; background:url(mluviiweb.PNG)"></div>
         <div id="camera" style="height:1px;width:1px"></div>
         <script>
             
@@ -134,9 +135,12 @@
           scr.src = 'https://appdev.mluvii.com/widget/OOWidget.js';
           scr.$owidgetOnLoad = function (owidget) {
             if (!owidget.isSupported) { return; }
-            owidget.init("295b1064cf5b4a5d9e05e7a74f86ae5e", 'petr');
+            owidget.init(["295b1064cf5b4a5d9e05e7a74f86ae5e", "107"], 'petr');
             owidget.setAppEventCallback(e => {
                     if(e.type == "chatWindowClosed") startLooking(1000);
+            });
+			owidget.setAppEventCallback(e => {
+                    if(e.type == "chatWindowOpen") stopLooking();
             });
             camera = new JpegCamera("#camera");
             camera.ready(()=>{
