@@ -249,7 +249,7 @@
 						{ 
 							"name": "CrmUrl",
 							"value": "[parameters('crmUrl')]"
-						}
+						},
 						{ 
 							"name": "Project",
 							"value": "dots-chatbot/DotsBot/DotsBot.csproj"
