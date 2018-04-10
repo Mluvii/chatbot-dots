@@ -61,6 +61,7 @@ namespace DotsBot.Dialogs
 
             await context.SayAsync(Resources.CrmQueryFailed);
             await context.SayAsync(Resources.goodbye);
+            context.Wait(onFinished);
         }
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
@@ -219,7 +220,7 @@ namespace DotsBot.Dialogs
                 message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.LastName))
             {
                 await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email, crmEntity.Product.ProductName));
-                context.Wait(async (subcontext, act) => context.EndConversation("0"));
+                context.Wait(onFinished);
                 return;
             }
 
@@ -280,6 +281,9 @@ namespace DotsBot.Dialogs
             var message = await result;
 
             if (message) StartOver(context);
+
+            await context.SayAsync(Resources.goodbye);
+            context.Wait(onFinished);
         }
 
         private async Task ConnectToOperator(IDialogContext context, string message, int? userID = null)
@@ -320,21 +324,9 @@ namespace DotsBot.Dialogs
             await context.PostAsync(act);
         }
 
-        private async Task DebugMenu(IDialogContext context)
+        private async Task onFinished(IDialogContext context, IAwaitable<object> result)
         {
-            switch (debugOptions)
-            {
-//                case DebugOptions.GotoFinalConfirmation:
-//                    await AskVerification(context);
-//                    break;
-//                case DebugOptions.GotoOperatorSearch:
-//                    await CheckAvailableOperators(context);
-//                    break;
-//                case DebugOptions.GotoMap:
-//                    await OnPersonalDetailsGiven(context, new AwaitableFromItem<Person>(order.CustomerDetails));
-//                    await context.SayAsync("Sokolovska 1 Praha");
-//                    break;
-            }
+            context.Done<object>(null);
         }
     }
 }

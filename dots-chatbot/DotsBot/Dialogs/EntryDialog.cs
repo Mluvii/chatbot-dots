@@ -33,7 +33,7 @@ namespace DotsBot.Dialogs
             var activity = await result;
             if (activity.AsMessageActivity() != null && activity.Text.ContainsAnyIgnoreCaseAndAccents("erik"))
             {
-                context.Call(dialogFactory.Create<MainDialog, string>(null), null);
+                context.Call(dialogFactory.Create<MainDialog, string>(null), onFinished);
                 return;
             }
             if (activity.AsEventActivity() != null && activity.ChannelData != null)
@@ -44,13 +44,13 @@ namespace DotsBot.Dialogs
                     if (personId != null)
                     {
                         personId = personId.Replace(" ", "");
-                        context.Call(dialogFactory.Create<MainDialog, string>(personId), null);
+                        context.Call(dialogFactory.Create<MainDialog, string>(personId), onFinished);
                         return;
                     }
                 }
                 catch (Exception)
                 {
-                    context.Call(dialogFactory.Create<MainDialog, string>(null), null);
+                    context.Call(dialogFactory.Create<MainDialog, string>(null), onFinished);
                     return;
                 }
 
@@ -62,7 +62,12 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            context.Call(dialogFactory.Create<MainDialog, string>(null), null);
+            context.Call(dialogFactory.Create<MainDialog, string>(null), onFinished);
+        }
+
+        private async Task onFinished(IDialogContext context, IAwaitable<object> result)
+        {
+            context.EndConversation("0");
         }
 
         private async Task AskCallParams(IDialogContext context)
