@@ -2,7 +2,7 @@
 {
     public class Customer
     {
-        public static string DefaultPersonId  => "00000000-0000-0000-0000-000000000001";
+        public static string DefaultPersonId  => "Jan Novak";
         
         public string FirstName { get; set; }
 
