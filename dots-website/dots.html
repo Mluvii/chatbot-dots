@@ -33,30 +33,26 @@
         }
 
         function callFaceApi(snapshot) {
-            throttle(() => {
-                Log("Calling Face API");
-                snapshot.upload({
-                    api_url: "https://dotsfaceapi3.azurewebsites.net/api/RecognizeFace"
-                }).done(function (response) {
-                    handleResponse(response)
-                    this.discard();
-                }).fail(function (status_code, error_message, response) {
-                    console.warn("DOTS: Upload failed with status " + status_code);
-                });
-            }, 6000)();
+            Log("Calling Face API");
+            snapshot.upload({
+                api_url: "https://dotsfaceapi4.azurewebsites.net/api/RecognizeFace"
+            }).done(function (response) {
+                handleResponse(response)
+                this.discard();
+            }).fail(function (status_code, error_message, response) {
+                console.warn("DOTS: Upload failed with status " + status_code);
+            });
         }
 
         function handleResponse(response) {
-            if (!response)
-                return;
-            var respJson = JSON.parse(response)
-            if (respJson.hasOwnProperty("PersonId")) {
+            var respJson = !!response && JSON.parse(response)
+            if (!!respJson && respJson.hasOwnProperty("PersonId")) {
                 Log("Recognized personId: " + respJson.PersonId);
                 faceRecognitionFinished(respJson.PersonId);
 
             } else {
                 Log("I don't see anyone familiar");
-                tryIdentifyPerson();
+                setTimeout(() => tryIdentifyPerson(), 1000);
             }
         }
 
@@ -65,19 +61,6 @@
                 type: 'identifyFaceResult',
                 payload: { personId: personId }
             }, '*');
-        }
-
-        function throttle(func, wait) {
-            return function (...args) {
-                const context = this;
-                if (!window.hasOwnProperty("throttleTimeout") || !throttleTimeout) {
-                    func.apply(context, args)
-                    throttleTimeout = setTimeout(() => {
-                        throttleTimeout = null;
-                    }
-                        , wait);
-                }
-            }
         }
 
         function Log(message) {
