@@ -1,155 +1,105 @@
 <html>
-    <head>
-        <script src="jpeg_camera/jpeg_camera_no_flash.js"></script>
-        <script src="jpeg_camera/canvas-to-blob.js"></script>
-        <script src="ccv/ccv.js"></script>
-        <script src="ccv/face.js"></script>
-    </head>
-    <body>
-		<div style="height:100%; width:100%; background:url(mluviiweb.PNG)"></div>
-        <div id="camera" style="height:1px;width:1px"></div>
-        <script>
-            
-            timer = null;
-            lastPersonId = null;
-            
 
-            function startLooking(interval) {
-                if (!timer) {
-                    timer = setInterval(()=>{
-                        tryDetectKnownPerson(camera);
-                    }, interval);
+<head>
+    <script src="jpeg_camera/jpeg_camera_no_flash.js"></script>
+    <script src="jpeg_camera/canvas-to-blob.js"></script>
+</head>
+
+<body>
+    <div style="height:100%; width:100%; background:url(mluviiweb.PNG)"></div>
+    <div id="camera" style="height:1px;width:1px"></div>
+    <script>
+
+        function setupFaceRecognition() {
+            window.addEventListener('message', msg => {
+                if (msg.data.type === 'identifyFace') {
+                    attempts = 3;
+                    tryIdentifyPerson()
                 }
-            }
-            function stopLooking() {
-                clearInterval(timer);
-                timer = null;
-            }
-            function tryDetectKnownPerson(camera) {
+
+            });
+        }
+
+        function tryIdentifyPerson() {
+            if (attempts-- > 0) {
                 var snapshot = camera.capture({
                     shutter: false
                 });
-                snapshot.get_blob(tryDetectFace, mime_type = "image/jpeg")
+                callFaceApi(snapshot);
             }
-
-            function tryDetectFace(imageBlob) {
-                var snapshot = this;
-                var image = document.createElement('img');
-
-                image.onload = function() {
-                    var comp = ccv.detect_objects({
-                        "canvas": ccv.grayscale(ccv.pre(image)),
-                        "cascade": cascade,
-                        "interval": 5,
-                        "min_neighbors": 1
-                    });
-                    if (comp.length > 0)
-                        onFaceDetected(snapshot);
-                    else
-                        onNoFaceDetected();
-                }
-                image.src = URL.createObjectURL(imageBlob);
+            else {
+                faceRecognitionFinished(null);
             }
+        }
 
-            function onFaceDetected(snapshot) {
-                Log("face detected");
-                throttle(()=>{
-                    snapshot.upload({
-                        api_url: "https://dotsfaceapi.azurewebsites.net/api/RecognizeFace"
-                    }).done(function(response) {
-                        handleResponse(response)
-                        this.discard();
-                    }).fail(function(status_code, error_message, response) {
-                        console.warn("DOTS: Upload failed with status " + status_code);
-                    });
-                }, 6000)();
-            }
+        function callFaceApi(snapshot) {
+            throttle(() => {
+                Log("Calling Face API");
+                snapshot.upload({
+                    api_url: "https://dotsfaceapi3.azurewebsites.net/api/RecognizeFace"
+                }).done(function (response) {
+                    handleResponse(response)
+                    this.discard();
+                }).fail(function (status_code, error_message, response) {
+                    console.warn("DOTS: Upload failed with status " + status_code);
+                });
+            }, 6000)();
+        }
 
-            function onNoFaceDetected() {
-                Log("no faces detected");
-                if (lastPersonId !== null)
-                    setTimeout(()=>{
-                        lastPersonId = null
-                    }, 600000);
+        function handleResponse(response) {
+            if (!response)
+                return;
+            var respJson = JSON.parse(response)
+            if (respJson.hasOwnProperty("PersonId")) {
+                Log("Recognized personId: " + respJson.PersonId);
+                faceRecognitionFinished(respJson.PersonId);
+
+            } else {
+                Log("I don't see anyone familiar");
+                tryIdentifyPerson();
             }
-            function handleResponse(response) {
-                if (!response)
-                    return;
-                var respJson = JSON.parse(response)
-                if (respJson.hasOwnProperty("PersonId")) {
-                    Log("Recognized personId: " + respJson.PersonId);
-                    if (lastPersonId !== respJson.PersonId) {
-                        GreetPerson(respJson.PersonId);
+        }
+
+        function faceRecognitionFinished(personId) {
+            document.querySelector(".onopChatIframe").contentWindow.postMessage({
+                type: 'identifyFaceResult',
+                payload: { personId: personId }
+            }, '*');
+        }
+
+        function throttle(func, wait) {
+            return function (...args) {
+                const context = this;
+                if (!window.hasOwnProperty("throttleTimeout") || !throttleTimeout) {
+                    func.apply(context, args)
+                    throttleTimeout = setTimeout(() => {
+                        throttleTimeout = null;
                     }
-
-                } else {
-                    Log("I don't see anyone familiar");
-                }
-            }
-
-            function GreetPerson(personId) {
-                stopLooking();
-                lastPersonId = personId;
-                $owidget.setCustomData({"FACE_API_PERSON_ID": personId});
-                $owidget.openChat(true);
-            }
-
-            function throttle(func, wait) {
-                return function(...args) {
-                    const context = this;
-                    if (!window.hasOwnProperty("throttleTimeout") || !throttleTimeout) {
-                        func.apply(context, args)
-                        throttleTimeout = setTimeout(()=>{
-                            throttleTimeout = null;
-                        }
                         , wait);
-                    }
                 }
             }
+        }
 
-            function debounce(func, wait, immediate) {
-                var timeout;
-                return function() {
-                    var context = this
-                      , args = arguments;
-                    var later = function() {
-                        timeout = null;
-                        if (!immediate)
-                            func.apply(context, args);
-                    };
-                    var callNow = immediate && !timeout;
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                    if (callNow)
-                        func.apply(context, args);
-                };
-            };
-
-            function Log(message) {
-                console.debug("DOTS: " + message);
-            }
-        </script>
-        <script type="text/javascript"> 
+        function Log(message) {
+            console.debug("DOTS: " + message);
+        }
+    </script>
+    <script type="text/javascript"> 
         (function () {
-          var scr = document.createElement('script'); scr.type = 'text/javascript'; scr.async = true; scr.charset = 'UTF-8';
-          scr.src = 'https://appdev.mluvii.com/widget/OOWidget.js';
-          scr.$owidgetOnLoad = function (owidget) {
-            if (!owidget.isSupported) { return; }
-            owidget.init(["295b1064cf5b4a5d9e05e7a74f86ae5e", "107"], 'petr');
-            owidget.setAppEventCallback(e => {
-                    if(e.type == "chatWindowClosed") startLooking(1000);
-            });
-			owidget.setAppEventCallback(e => {
-                    if(e.type == "chatWindowOpen") stopLooking();
-            });
-            camera = new JpegCamera("#camera");
-            camera.ready(()=>{
-                startLooking(1000);
-            });
-            owidget.connectToServer();
-          };
-          var ffs = document.getElementsByTagName('script')[0]; ffs.parentNode.insertBefore(scr, ffs);
+            var scr = document.createElement('script'); scr.type = 'text/javascript'; scr.async = true; scr.charset = 'UTF-8';
+            scr.src = 'https://appdev.mluvii.com/widget/OOWidget.js';
+            scr.$owidgetOnLoad = function (owidget) {
+                if (!owidget.isSupported) { return; }
+                owidget.init(["295b1064cf5b4a5d9e05e7a74f86ae5e", "107"], 'MluviiChat');
+                camera = new JpegCamera("#camera");
+                camera.ready(() => {
+                    setupFaceRecognition();
+                });
+                owidget.connectToServer();
+            };
+            var ffs = document.getElementsByTagName('script')[0]; ffs.parentNode.insertBefore(scr, ffs);
         })();
-        </script>
-    </body>
+    </script>
+</body>
+
 </html>
