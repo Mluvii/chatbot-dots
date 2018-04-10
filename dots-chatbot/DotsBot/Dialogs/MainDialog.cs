@@ -289,7 +289,11 @@ namespace DotsBot.Dialogs
 
             var response = await result;
 
-            if (response) StartOver(context);
+            if (response)
+            {
+                StartOver(context);
+                return;
+            }
 
             await context.SayAsync(Resources.goodbye);
             context.Wait(onFinished);
