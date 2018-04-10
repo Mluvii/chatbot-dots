@@ -26,14 +26,10 @@ namespace DtsFaceApi
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
-            bool isDebug = false;
-            bool johnDoe = true;
-            //if (req.RequestUri.Query.Contains("debug")) isDebug = true;
-            if (req.RequestUri.Query.Contains("johnDoeDisabled")) johnDoe = false;
             var echoIds = req.GetQueryNameValuePairs().Where(kvp => kvp.Key.Equals("echoId", StringComparison.OrdinalIgnoreCase));
             if (echoIds.Any())
             {
-                HttpResponseMessage resp = await GetResponse(req, isDebug, null, johnDoePersonId, "John Doe", echoIds.First().Value);
+                HttpResponseMessage resp = await GetResponse(req, null, johnDoePersonId, echoIds.First().Value);
                 return resp;
             }
 
@@ -52,12 +48,7 @@ namespace DtsFaceApi
 
                         if (face != null)
                         {
-                            HttpResponseMessage resp = await GetResponse(req, isDebug, faceService, face.PersonId);
-                            return resp;
-                        }
-                        else if(johnDoe)
-                        {
-                            HttpResponseMessage resp = await GetResponse(req, isDebug, faceService, johnDoePersonId, "John Doe");
+                            HttpResponseMessage resp = await GetResponse(req, faceService, face.PersonId);
                             return resp;
                         }
                     }
@@ -67,7 +58,7 @@ namespace DtsFaceApi
             return req.CreateResponse(HttpStatusCode.NoContent);
         }
 
-        private static async Task<HttpResponseMessage> GetResponse(HttpRequestMessage req, bool isDebug, FaceServiceClient faceService, Guid personId, string personName = null, string echoId = null)
+        private static async Task<HttpResponseMessage> GetResponse(HttpRequestMessage req, FaceServiceClient faceService, Guid personId, string echoId = null)
         {
             var resp = req.CreateResponse(HttpStatusCode.OK);
             dynamic respConent = new ExpandoObject();
@@ -78,20 +69,8 @@ namespace DtsFaceApi
             }
             else
             {
-                respConent.PersonId = personId.ToString();
-            }
-            if (isDebug)
-            {
-                if(personName != null)
-                {
-                    respConent.PersonName = personName;
-                }
-                else
-                {
-                    var person = await faceService.GetPersonAsync(personGroupId, personId);
-                    respConent.PersonName = person.Name;
-                }
-                
+                var person = await faceService.GetPersonAsync(personGroupId, personId);
+                respConent.PersonId = person?.Name;
             }
             resp.Content = new StringContent(JsonConvert.SerializeObject(respConent), Encoding.UTF8, "application/json");
 

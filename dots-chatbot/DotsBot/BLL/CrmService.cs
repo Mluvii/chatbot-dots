@@ -15,6 +15,10 @@ namespace DotsBot.BLL
 
         public async Task<CrmEntity> GetCrmData(string personId)
         {
+            if (crmUrl == null)
+            {
+                return await GetDummyResponse(personId); 
+            }
             using (var client = new HttpClient())
             {
                 var customerTask = GetCustomerDetail(client, personId);
@@ -27,15 +31,20 @@ namespace DotsBot.BLL
 
                 if (customer?.Customer == null || product == null)
                 {
-                    var fakeCrm = new FakeCrmService();
-
-                    return await fakeCrm.GetCrmData(personId);
+                    return await GetDummyResponse(personId);
                 }
                 
                 customer.Product = product;
 
                 return customer;
             }
+        }
+
+        private static async Task<CrmEntity> GetDummyResponse(string personId)
+        {
+            var fakeCrm = new FakeCrmService();
+
+            return await fakeCrm.GetCrmData(personId);
         }
 
         private async Task<CrmEntity> GetCustomerDetail(HttpClient client, string personId)

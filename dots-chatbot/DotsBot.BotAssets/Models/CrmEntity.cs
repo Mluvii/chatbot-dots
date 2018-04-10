@@ -9,7 +9,5 @@ namespace DotsBot.BotAssets.Models
         public Product Product { get; set; }
 
         public string Salutation { get; set; }
-        
-        public Dictionary<string, string> SalesArguments { get; set; }
     }
 }
