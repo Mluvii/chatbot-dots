@@ -146,19 +146,18 @@
       const pin = document.getElementById('pin');
       const submit = document.getElementById('submit');
 
-      if(lang === 'en') {
-        prefill.innerText = 'Prefill the Form';
-        pText.innerText = 'You have not been recognized. Please, enter you name and PIN:';
-        nameAndSurname.innerText = 'Name and Surname';
-        pin.innerText = 'PIN';
-        submit.innerText = 'Next';
-      }
       if(lang === 'cs') {
         prefill.innerText = 'Předvyplnit formulář';
         pText.innerText = 'Nebyl jste rozpoznán. Zadejte prosím Vaše jméno a PIN:';
         nameAndSurname.innerText = 'Jméno a příjmení';
         pin.innerText = 'PIN';
         submit.innerText = 'Pokračovat';
+      } else {
+        prefill.innerText = 'Prefill the Form';
+        pText.innerText = 'You have not been recognized. Please, enter you name and PIN:';
+        nameAndSurname.innerText = 'Name and Surname';
+        pin.innerText = 'PIN';
+        submit.innerText = 'Next';
       }
     }
 
