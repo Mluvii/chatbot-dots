@@ -151,7 +151,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nabízíme vám na produkt {0} o celkové hodnotě {1} výši měsíčních splátek {2} s úrokovou sazbou {3}%.
+        ///   Looks up a localized string similar to Nabízíme vám úvěr na produkt {0} o celkové hodnotě {1} výši měsíčních splátek {2} s úrokovou sazbou {3}%.
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
@@ -183,15 +183,6 @@ namespace DotsBot.Properties {
         internal static string MluviiDialog_product_offer_choice_offer_no_good_selected {
             get {
                 return ResourceManager.GetString("MluviiDialog_product_offer_choice_offer_no_good_selected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Podepsat na pobočce.
-        /// </summary>
-        internal static string MluviiDialog_product_offer_choice_sign_offline {
-            get {
-                return ResourceManager.GetString("MluviiDialog_product_offer_choice_sign_offline", resourceCulture);
             }
         }
         

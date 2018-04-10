@@ -152,7 +152,7 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
     <value>Na kolik částek si přejete splátku rozdělit?</value>
   </data>
     <data name="MluviiDialog_product_offer" xml:space="preserve">
-    <value>Nabízíme vám na produkt {0} o celkové hodnotě {1} výši měsíčních splátek {2} s úrokovou sazbou {3}%</value>
+    <value>Nabízíme vám úvěr na produkt {0} o celkové hodnotě {1} výši měsíčních splátek {2} s úrokovou sazbou {3}%</value>
   </data>
     <data name="MluviiDialog_product_offer_choice_sign_online" xml:space="preserve">
     <value>Podepsat elektronicky</value>

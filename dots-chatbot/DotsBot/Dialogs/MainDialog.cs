@@ -201,11 +201,6 @@ namespace DotsBot.Dialogs
             PromptDialog.Text(context, OnOnlineSigned, Resources.MluviiDialog_product_offer_your_signature_here);
         }
 
-        private async Task SignOfflineSelected(IDialogContext context)
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task OnOnlineSigned(IDialogContext context, IAwaitable<string> result)
         {
             try
@@ -223,8 +218,8 @@ namespace DotsBot.Dialogs
             if (message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.FirstName) &&
                 message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.LastName))
             {
-                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email,
-                    crmEntity.Product.ProductName));
+                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email, crmEntity.Product.ProductName));
+                context.Wait(async (subcontext, act) => context.EndConversation("0"));
                 return;
             }
 

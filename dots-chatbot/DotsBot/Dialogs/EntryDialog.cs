@@ -40,9 +40,10 @@ namespace DotsBot.Dialogs
                 try
                 {
                     var callParamsResponse = JsonConvert.DeserializeObject<GetCallParamsResponse>((string)activity.ChannelData.ToString());
-                    var personId = callParamsResponse.CallParams.ValueOrDefault(ClientCallPredefParam.FACE_API_PERSON_ID);
+                    var personId = callParamsResponse.CallParams.ValueOrDefault(ClientCallPredefParam.GUEST_IDENTITY);
                     if (personId != null)
                     {
+                        personId = personId.Replace(" ", "");
                         context.Call(dialogFactory.Create<MainDialog, string>(personId), null);
                         return;
                     }
