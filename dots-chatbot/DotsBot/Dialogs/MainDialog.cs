@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DotsBot.BLL;
 using DotsBot.BotAssets;
@@ -16,7 +17,7 @@ using Newtonsoft.Json.Linq;
 #pragma warning disable 1998
 namespace DotsBot.Dialogs
 {
-    public class MainDialog : IDialog<Product>
+    public class MainDialog : IDialog
     {
         private const int MaxAttempts = 5;
         private readonly ICrmService crmService;
@@ -45,7 +46,8 @@ namespace DotsBot.Dialogs
                 SetCallParams(context);
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
-                    null,
+                    "",
+                    "",
                     string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
                     new[]
                     {
@@ -86,12 +88,6 @@ namespace DotsBot.Dialogs
 
             if (conversationReference == null) conversationReference = message.ToConversationReference();
 
-            if (debugOptions != DebugOptions.None)
-            {
-                await DebugMenu(context);
-                return;
-            }
-
             if (message.Text.ContainsAnyIgnoreCaseAndAccents("operator", "clovek"))
             {
                 await CheckAvailableOperators(context);
@@ -122,11 +118,18 @@ namespace DotsBot.Dialogs
 
         private async Task OnBotSelected(IDialogContext context)
         {
-            PromptDialog.Number(context, OnInstalmentsSelected, Resources.MluviiDialog_instalments_prompt,
-                Resources.RetryText, MaxAttempts, min: 1, max: 120);
+            var reply = context.MakeMessage();
+            reply.AddHeroCard(
+                "",
+                "",
+                Resources.MluviiDialog_instalments_prompt,
+                new[] { 4, 6, 12 });
+
+            await context.PostAsync(reply);
+            context.Wait(OnInstalmentsSelected);
         }
 
-        private async Task OnInstalmentsSelected(IDialogContext context, IAwaitable<long> result)
+        private async Task OnInstalmentsSelected(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             try
             {
@@ -138,14 +141,20 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            var instalmentCount = await result;
+            int instalmentCount;
+            if (!int.TryParse((await result).Text, out instalmentCount) || instalmentCount < 2 || instalmentCount > 120)
+            {
+                await OnBotSelected(context);
+                return;
+            }
             var interest = crmEntity.Product.InterestRate;
             var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? new decimal(399), interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 "",
+                "",
                 string.Format(Resources.MluviiDialog_product_offer, crmEntity.Product.ProductName,
-                    crmEntity.Product.ProductPrice, emi, interest / 100),
+                    crmEntity.Product.ProductPrice, emi, interest),
                 new[]
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
@@ -278,9 +287,9 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            var message = await result;
+            var response = await result;
 
-            if (message) StartOver(context);
+            if (response) StartOver(context);
 
             await context.SayAsync(Resources.goodbye);
             context.Wait(onFinished);
