@@ -153,6 +153,10 @@
                             "name": "FaceApiPersonGroup",
                             "value": "[parameters('FaceApiPersonGroup')]"
                         },
+                        {
+                            "name": "AzureWebJobsDisableHomepage",
+                            "value": true
+                        },
 						{ 
 							"name": "Project",
 							"value": "dots-faceapi/DtsFaceApi/DtsFaceApi.csproj" 
