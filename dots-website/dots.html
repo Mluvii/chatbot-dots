@@ -57,7 +57,7 @@
         }
 
         function faceRecognitionFinished(personId) {
-            document.querySelector(".onopChatIframe").contentWindow.postMessage({
+            document.onopChatIframe.frames[0].postMessage({
                 type: 'identifyFaceResult',
                 payload: { personId: personId }
             }, '*');
