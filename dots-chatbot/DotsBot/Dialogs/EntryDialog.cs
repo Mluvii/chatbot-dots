@@ -43,7 +43,7 @@ namespace DotsBot.Dialogs
                     var personId = callParamsResponse.CallParams.ValueOrDefault(ClientCallPredefParam.GUEST_IDENTITY);
                     if (personId != null)
                     {
-                        personId = personId.Replace(" ", "");
+                        personId = personId.Replace(" ", "").RemoveDiacritics();
                         context.Call(dialogFactory.Create<MainDialog, string>(personId), onFinished);
                         return;
                     }
