@@ -62,7 +62,16 @@ namespace DotsBot.Dialogs
             }
 
             await context.SayAsync(Resources.CrmQueryFailed);
-            await context.SayAsync(Resources.goodbye);
+            var endreply = context.MakeMessage();
+            endreply.AddHeroCard(
+                "",
+                "",
+                string.Format(Resources.goodbye, crmEntity.Customer.Email, crmEntity.Product.ProductName),
+                new[]
+                {
+                    Resources.HelpDialog_end,
+                });
+            await context.PostAsync(endreply);
             context.Wait(onFinished);
         }
 
@@ -100,20 +109,25 @@ namespace DotsBot.Dialogs
                 return;
             }
 
+            await context.SayAsync(Resources.RetryText);
             StartOver(context);
         }
 
-        private void StartOver(IDialogContext context)
+        private async void StartOver(IDialogContext context)
         {
-            PromptDialog.Choice(context, async (dialogContext, subResult) =>
-                {
-                    var fakeMessage = dialogContext.MakeMessage();
-                    fakeMessage.Text = await subResult;
-                    await MessageReceivedAsync(dialogContext, new AwaitableFromItem<IMessageActivity>(fakeMessage));
-                },
-                new[] {Resources.WelcomeMessage_operator, Resources.MluviiDialog_virtual_assistant},
+            var reply = context.MakeMessage();
+            reply.AddHeroCard(
+                "",
+                "",
                 string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
-                Resources.RetryText, MaxAttempts);
+                new[]
+                {
+                    Resources.WelcomeMessage_operator,
+                    Resources.MluviiDialog_virtual_assistant
+                },
+                crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
+            await context.PostAsync(reply);
+            context.Wait(MessageReceivedAsync);
         }
 
         private async Task OnBotSelected(IDialogContext context)
@@ -161,7 +175,7 @@ namespace DotsBot.Dialogs
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
                     Resources.MluviiDialog_product_offer_choice_offer_no_good
                 },
-                new[] {crmEntity.Product.ProductPhotoUrl});
+                crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
 
             await context.PostAsync(reply);
             context.Wait(ProductOfferReacted);
@@ -228,7 +242,16 @@ namespace DotsBot.Dialogs
             if (message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.FirstName) &&
                 message.ContainsIgnoreCaseAndAccents(crmEntity.Customer.LastName))
             {
-                await context.SayAsync(string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email, crmEntity.Product.ProductName));
+                var reply = context.MakeMessage();
+                reply.AddHeroCard(
+                    "",
+                    "",
+                    string.Format(Resources.MluviiDialog_product_offer_signed, crmEntity.Customer.Email, crmEntity.Product.ProductName),
+                    new[]
+                    {
+                        Resources.HelpDialog_end,
+                    });
+                await context.PostAsync(reply);
                 context.Wait(onFinished);
                 return;
             }
@@ -295,7 +318,16 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            await context.SayAsync(Resources.goodbye);
+            var reply = context.MakeMessage();
+            reply.AddHeroCard(
+                "",
+                "",
+                string.Format(Resources.goodbye, crmEntity.Customer.Email, crmEntity.Product.ProductName),
+                new[]
+                {
+                    Resources.HelpDialog_end,
+                });
+            await context.PostAsync(reply);
             context.Wait(onFinished);
         }
 
