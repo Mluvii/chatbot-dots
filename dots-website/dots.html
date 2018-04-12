@@ -35,7 +35,7 @@
         function callFaceApi(snapshot) {
             Log("Calling Face API");
             snapshot.upload({
-                api_url: "https://dotsfaceapi4.azurewebsites.net/api/RecognizeFace"
+                api_url: "https://dotsfaceapi.azurewebsites.net/api/RecognizeFace"
             }).done(function (response) {
                 handleResponse(response)
                 this.discard();
@@ -70,10 +70,10 @@
     <script type="text/javascript"> 
         (function () {
             var scr = document.createElement('script'); scr.type = 'text/javascript'; scr.async = true; scr.charset = 'UTF-8';
-            scr.src = 'https://appdev.mluvii.com/widget/OOWidget.js';
+            scr.src = 'https://dots.mluvii.com/widget/OOWidget.js';
             scr.$owidgetOnLoad = function (owidget) {
                 if (!owidget.isSupported) { return; }
-                owidget.init(["295b1064cf5b4a5d9e05e7a74f86ae5e", "107"], 'MluviiChat');
+                owidget.init("295b1064cf5b4a5d9e05e7a74f86ae5e", 'dots');
                 camera = new JpegCamera("#camera");
                 camera.ready(() => {
                     setupFaceRecognition();
