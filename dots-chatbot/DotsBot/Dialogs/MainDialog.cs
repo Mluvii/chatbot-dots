@@ -110,10 +110,10 @@ namespace DotsBot.Dialogs
             }
 
             await context.SayAsync(Resources.RetryText);
-            StartOver(context);
+            await StartOver(context);
         }
 
-        private async void StartOver(IDialogContext context)
+        private async Task StartOver(IDialogContext context)
         {
             var reply = context.MakeMessage();
             reply.AddHeroCard(
@@ -314,7 +314,7 @@ namespace DotsBot.Dialogs
 
             if (response)
             {
-                StartOver(context);
+                await StartOver(context);
                 return;
             }
 
