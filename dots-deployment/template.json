@@ -142,6 +142,14 @@
 							"value": "~1"
 						},
 						{
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]"
+                        },
+						{
+                            "name": "AzureWebJobsDashboard",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]"
+                        },
+						{
                             "name": "FaceApiRootUrl",
                             "value": "[parameters('FaceApiRootUrl')]"
                         },
@@ -170,20 +178,6 @@
 				}
 			},
 			"resources": [
-				{
-					"apiVersion": "2015-08-01",
-					"name": "appsettings",
-					"type": "config",
-					"dependsOn": [
-						"[resourceId('Microsoft.Web/Sites', parameters('sites_dotsfaceapi_name'))]",
-						"[resourceId('Microsoft.Web/Sites/sourcecontrols', parameters('sites_dotsfaceapi_name'), 'web')]",
-						"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dotsfaceapistorage_name'))]"
-					],
-					"properties": {
-						"AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]",
-						"AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_dotsfaceapistorage_name'), ';AccountKey=', listKeys(parameters('storageAccounts_dotsfaceapistorage_name'),'2015-05-01-preview').key1)]"
-					}
-				},
 				{
 					"apiVersion": "2015-08-01",
 					"name": "web",
