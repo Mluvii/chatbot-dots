@@ -153,7 +153,7 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
     <value>Úroková sazba: {0}</value>
   </data>
   <data name="MluviiDialog_product_offer" xml:space="preserve">
-    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%</value>
+    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%</value>
   </data>
   <data name="MluviiDialog_product_offer_choice_sign_online" xml:space="preserve">
     <value>Podepsat elektronicky</value>
@@ -199,5 +199,8 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
   </data>
   <data name="CrmQueryFailed" xml:space="preserve">
     <value>Nenašel jsem pro Vás žádnou objednávku.</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>{0} Kč</value>
   </data>
 </root>

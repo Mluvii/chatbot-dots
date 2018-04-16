@@ -151,7 +151,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%.
+        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%.
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
@@ -264,6 +264,15 @@ namespace DotsBot.Properties {
         internal static string OperatorSelection_none_availible {
             get {
                 return ResourceManager.GetString("OperatorSelection_none_availible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Kč.
+        /// </summary>
+        internal static string ProductPrice {
+            get {
+                return ResourceManager.GetString("ProductPrice", resourceCulture);
             }
         }
         

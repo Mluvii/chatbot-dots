@@ -47,8 +47,8 @@ namespace DotsBot.Dialogs
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
                     crmEntity.Product?.ProductName,
-                    crmEntity.Product?.ProductPrice.ToString(),
-                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}<b>"),
+                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                     new[]
                     {
                         Resources.WelcomeMessage_operator,
@@ -118,8 +118,8 @@ namespace DotsBot.Dialogs
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 crmEntity.Product?.ProductName,
-                crmEntity.Product?.ProductPrice.ToString(),
-                string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}<b>"),
+                string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                 new[]
                 {
                     Resources.WelcomeMessage_operator,
@@ -162,14 +162,14 @@ namespace DotsBot.Dialogs
                 return;
             }
             var interest = crmEntity.Product.InterestRate;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? new decimal(399), interest ?? defaultInterestRate.Value);
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice.Value, interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 string.Format(Resources.MluviiDialog_product_offer_title, DateTime.Now.ToString("yyyyddMMHHmmss")),
                 string.Format(Resources.MluviiDialog_product_offer_subTitle, $"{interest}%"),
                 string.Format(Resources.MluviiDialog_product_offer, 
                     $"<b>{crmEntity.Product.ProductName}</b>",
-                    crmEntity.Product.ProductPrice,
+                    crmEntity.Product.ProductPrice.Value.ToString("F"),
                     instalmentCount,
                     emi, 
                     interest),
