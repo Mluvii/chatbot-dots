@@ -137,17 +137,23 @@
   </data>
   <data name="WelcomeMessage_prompt" xml:space="preserve">
     <value>{0},
-přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?
+přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta (ChatBot)?
     </value>
   </data>
   <data name="WelcomeMessage_operator" xml:space="preserve">
     <value>Operátor</value>
   </data>
   <data name="MluviiDialog_instalments_prompt" xml:space="preserve">
-    <value>Na kolik částek si přejete splátku rozdělit? (2 až 120)</value>
+    <value>Na kolik částek si přejete splátku rozdělit? (2 až 24)</value>
+  </data>
+  <data name="MluviiDialog_product_offer_title" xml:space="preserve">
+    <value>Úvěrová smlouva č. {0}</value>
+  </data>
+  <data name="MluviiDialog_product_offer_subTitle" xml:space="preserve">
+    <value>Úroková sazba: {0}</value>
   </data>
   <data name="MluviiDialog_product_offer" xml:space="preserve">
-    <value>Nabízíme vám úvěr na produkt {0} o celkové hodnotě {1} výši měsíčních splátek {2} s úrokovou sazbou {3}%</value>
+    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%</value>
   </data>
   <data name="MluviiDialog_product_offer_choice_sign_online" xml:space="preserve">
     <value>Podepsat elektronicky</value>
@@ -155,26 +161,23 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
   <data name="MluviiDialog_product_offer_choice_not_tincans" xml:space="preserve">
     <value>Uzavřít s živým operátorem</value>
   </data>
-  <data name="MluviiDialog_product_offer_choice_offer_no_good" xml:space="preserve">
-    <value>Nesouhlasím s úrokem</value>
-  </data>
-  <data name="MluviiDialog_product_offer_choice_offer_no_good_selected" xml:space="preserve">
-    <value>Děkuji, rozumím a přepojuji na operátora.</value>
-  </data>
   <data name="MluviiDialog_operator_failed" xml:space="preserve">
     <value>Bohužel se nepodařilo spojit s operátorem. Přejete si začít znovu?</value>
   </data>
   <data name="MluviiDialog_product_offer_your_signature_here" xml:space="preserve">
     <value>Prosím podepište se. (jméno příjmení)</value>
   </data>
+  <data name="MluviiDialog_product_offer_your_signature_here_retry" xml:space="preserve">
+    <value>Bohužel zadané údaje nesouhlasí s údaji v našem systému, prosím podepište se (jméno příjmení).</value>
+  </data>
   <data name="MluviiDialog_product_offer_signed" xml:space="preserve">
     <value>Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} si můžete vyzvednout v našem Boxu č. 10.</value>
   </data>
+  <data name="MluviiDialog_product_offer_sign_failed" xml:space="preserve">
+    <value>Bohužel zadané údaje se ani na potřetí neshodují, proto Vás přepojuji na Operátora.</value>
+  </data>
   <data name="MluviiDialog_virtual_assistant" xml:space="preserve">
     <value>Virtuální asistent</value>
-  </data>
-  <data name="OperatorSelection_not_interesed" xml:space="preserve">
-    <value>Nechci teď mluvit s operátorem</value>
   </data>
   <data name="OperatorSelection_none_availible" xml:space="preserve">
     <value>Je nám líto, momentálně nejsou k dispozici žádní operátoři.</value>
@@ -183,7 +186,7 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
     <value>Nashledanou</value>
   </data>
   <data name="OperatorConnect_wait" xml:space="preserve">
-    <value>Dobře, přepojuji Vás na operátora. Prosím strpení.</value>
+    <value>Přepojuji Vás na operátora {0}. Prosím strpení.</value>
   </data>
   <data name="MluviiDialog_person_form_cancelled" xml:space="preserve">
     <value>Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</value>
@@ -196,5 +199,8 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
   </data>
   <data name="CrmQueryFailed" xml:space="preserve">
     <value>Nenašel jsem pro Vás žádnou objednávku.</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>{0} Kč</value>
   </data>
 </root>

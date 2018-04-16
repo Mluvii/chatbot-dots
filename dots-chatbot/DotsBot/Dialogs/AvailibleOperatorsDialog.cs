@@ -70,9 +70,7 @@ namespace DotsBot.Dialogs
             {
                 var operatorNames = availibleOperators.AvailableOperators.Select(ope => ope.DisplayName).ToList();
                 operatorNames.Sort();
-                await context.SayAsync(
-                    $"K dispozici jsou: {string.Join(", ", operatorNames.Take(operatorNames.Count - 1))} a {operatorNames.Last()}");
-                operatorNames.Add(Resources.OperatorSelection_not_interesed);
+                await context.SayAsync($"K dispozici jsou: {string.Join(", ", operatorNames.Take(operatorNames.Count - 1))} a {operatorNames.Last()}");
                 PromptDialog.Choice(context, OnOperatorSelected, operatorNames, $"S kým byste chtěl mluvit?",
                     Resources.RetryText, 5);
                 return;
@@ -81,36 +79,12 @@ namespace DotsBot.Dialogs
             if (availibleOperators.AvailableOperators.Count == 1)
             {
                 var operatorName = availibleOperators.AvailableOperators.Single().DisplayName;
-                PromptDialog.Choice(context,
-                    (dialogContext, subResult) => OnSingleOperatorConfirmed(dialogContext, subResult, operatorName),
-                    new[] {"Mluvit", Resources.OperatorSelection_not_interesed}, $"K dispozici je {operatorName}.",
-                    Resources.RetryText, 2);
+                await OnOperatorSelected(context, new AwaitableFromItem<string>(operatorName));
                 return;
             }
 
             await context.SayAsync(Resources.OperatorSelection_none_availible);
             context.Done<AvailableOperatorInfo>(null);
-        }
-
-        private async Task OnSingleOperatorConfirmed(IDialogContext context, IAwaitable<string> result,
-            string operatorName)
-        {
-            try
-            {
-                await result;
-            }
-            catch (TooManyAttemptsException)
-            {
-                context.Call(dialogFactory.Create<HelpDialog, bool>(false), null);
-                return;
-            }
-
-            var choice = await result;
-            if (choice.ToLower() == "mluvit")
-                await OnOperatorSelected(context, new AwaitableFromItem<string>(operatorName));
-            else
-                await OnOperatorSelected(context,
-                    new AwaitableFromItem<string>(Resources.OperatorSelection_not_interesed));
         }
 
         private async Task OnOperatorSelected(IDialogContext context, IAwaitable<string> result)
@@ -126,14 +100,7 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            if (selectedOpe.Equals(Resources.OperatorSelection_not_interesed))
-            {
-                context.Done<AvailableOperatorInfo>(null);
-                return;
-            }
-
-            var selected =
-                availibleOperators.AvailableOperators.SingleOrDefault(ope => ope.DisplayName.Equals(selectedOpe));
+            var selected = availibleOperators.AvailableOperators.SingleOrDefault(ope => ope.DisplayName.Equals(selectedOpe));
 
             context.Done(selected);
         }

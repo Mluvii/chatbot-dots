@@ -41,6 +41,7 @@
                 this.discard();
             }).fail(function (status_code, error_message, response) {
                 console.warn("DOTS: Upload failed with status " + status_code);
+                handleResponse(null);
             });
         }
 

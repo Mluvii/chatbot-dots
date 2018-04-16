@@ -46,9 +46,9 @@ namespace DotsBot.Dialogs
                 SetCallParams(context);
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
-                    "",
-                    "",
-                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
+                    crmEntity.Product?.ProductName,
+                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                     new[]
                     {
                         Resources.WelcomeMessage_operator,
@@ -117,9 +117,9 @@ namespace DotsBot.Dialogs
         {
             var reply = context.MakeMessage();
             reply.AddHeroCard(
-                "",
-                "",
-                string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, crmEntity.Product?.ProductName),
+                crmEntity.Product?.ProductName,
+                string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                 new[]
                 {
                     Resources.WelcomeMessage_operator,
@@ -137,7 +137,7 @@ namespace DotsBot.Dialogs
                 "",
                 "",
                 Resources.MluviiDialog_instalments_prompt,
-                new[] { 4, 6, 12 });
+                new[] { 3, 6, 12, 24 });
 
             await context.PostAsync(reply);
             context.Wait(OnInstalmentsSelected);
@@ -156,26 +156,28 @@ namespace DotsBot.Dialogs
             }
 
             int instalmentCount;
-            if (!int.TryParse((await result).Text, out instalmentCount) || instalmentCount < 2 || instalmentCount > 120)
+            if (!int.TryParse((await result).Text, out instalmentCount) || instalmentCount < 2 || instalmentCount > 24)
             {
                 await OnBotSelected(context);
                 return;
             }
             var interest = crmEntity.Product.InterestRate;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? new decimal(399), interest ?? defaultInterestRate.Value);
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice.Value, interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
-                "",
-                "",
-                string.Format(Resources.MluviiDialog_product_offer, crmEntity.Product.ProductName,
-                    crmEntity.Product.ProductPrice, emi, interest),
+                string.Format(Resources.MluviiDialog_product_offer_title, DateTime.Now.ToString("yyyyddMMHHmmss")),
+                string.Format(Resources.MluviiDialog_product_offer_subTitle, $"{interest}%"),
+                string.Format(Resources.MluviiDialog_product_offer, 
+                    $"<b>{crmEntity.Product.ProductName}</b>",
+                    crmEntity.Product.ProductPrice.Value.ToString("F"),
+                    instalmentCount,
+                    emi, 
+                    interest),
                 new[]
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
-                    Resources.MluviiDialog_product_offer_choice_offer_no_good
-                },
-                crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
+                });
 
             await context.PostAsync(reply);
             context.Wait(ProductOfferReacted);
@@ -197,13 +199,6 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("nesouhlasim", "urok"))
-            {
-                await context.SayAsync(Resources.MluviiDialog_product_offer_choice_offer_no_good_selected);
-                await CheckAvailableOperators(context);
-                return;
-            }
-            
             PromptDialog.Choice(context, async (dialogContext, subResult) =>
                 {
                     var fakeMessage = dialogContext.MakeMessage();
@@ -214,15 +209,15 @@ namespace DotsBot.Dialogs
                 {
                     Resources.MluviiDialog_product_offer_choice_sign_online,
                     Resources.MluviiDialog_product_offer_choice_not_tincans,
-                    Resources.MluviiDialog_product_offer_choice_offer_no_good
                 },
                 string.Format(Resources.RetryText),
                 Resources.RetryText, MaxAttempts);
         }
 
-        private async Task SignOnlineSelected(IDialogContext context)
+        private async Task SignOnlineSelected(IDialogContext context, bool isRetry = false)
         {
-            PromptDialog.Text(context, OnOnlineSigned, Resources.MluviiDialog_product_offer_your_signature_here);
+            PromptDialog.Text(context, OnOnlineSigned, 
+                isRetry ? Resources.MluviiDialog_product_offer_your_signature_here_retry : Resources.MluviiDialog_product_offer_your_signature_here);
         }
 
         private async Task OnOnlineSigned(IDialogContext context, IAwaitable<string> result)
@@ -256,13 +251,13 @@ namespace DotsBot.Dialogs
                 return;
             }
 
-            if (crmEntity.Customer.SignAttempts-- < 1)
+            if (--crmEntity.Customer.SignAttempts < 1)
             {
-                await CheckAvailableOperators(context);
+                await CheckAvailableOperators(context, Resources.MluviiDialog_product_offer_sign_failed);
                 return;
             }
 
-            await SignOnlineSelected(context);
+            await SignOnlineSelected(context, true);
         }
 
         private decimal CalculateEmi(long instalmentCount, decimal orderProductPrice, double interest)
@@ -277,9 +272,9 @@ namespace DotsBot.Dialogs
         }
 
 
-        private async Task CheckAvailableOperators(IDialogContext context)
+        private async Task CheckAvailableOperators(IDialogContext context, string text = null)
         {
-            await context.SayAsync(Resources.MluviiDialog_wait_checking_available_operators);
+            await context.SayAsync(text ?? Resources.MluviiDialog_wait_checking_available_operators);
             context.Call(dialogFactory.Create<AvailibleOperatorsDialog>(), OnAvailibleOperatorsResponse);
         }
 
@@ -290,12 +285,11 @@ namespace DotsBot.Dialogs
 
             if (selectedOperator == null)
             {
-                PromptDialog.Confirm(context, OnStartOverSelected, Resources.MluviiDialog_operator_failed,
-                    Resources.RetryText, MaxAttempts);
+                PromptDialog.Confirm(context, OnStartOverSelected, Resources.MluviiDialog_operator_failed, Resources.RetryText, MaxAttempts);
                 return;
             }
 
-            await ConnectToOperator(context, Resources.OperatorConnect_wait, selectedOperator.UserId);
+            await ConnectToOperator(context, string.Format(Resources.OperatorConnect_wait, selectedOperator.DisplayName), selectedOperator.UserId);
         }
 
         private async Task OnStartOverSelected(IDialogContext context, IAwaitable<bool> result)

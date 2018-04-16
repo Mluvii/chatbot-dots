@@ -15,7 +15,7 @@ namespace DotsBot.BLL
 
         public async Task<CrmEntity> GetCrmData(string personId)
         {
-            if (crmUrl == null)
+            if (string.IsNullOrEmpty(crmUrl))
             {
                 return await GetDummyResponse(personId); 
             }
@@ -29,7 +29,9 @@ namespace DotsBot.BLL
                 var customer = await customerTask;
                 var product = await productTask;
 
-                if (customer?.Customer == null || product == null)
+                if (customer?.Customer == null 
+                    || product?.ProductName == null
+                    || product.ProductPrice == null)
                 {
                     return await GetDummyResponse(personId);
                 }
