@@ -171,7 +171,7 @@ namespace DotsBot.Dialogs
                     $"<b>{crmEntity.Product.ProductName}</b>",
                     string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
                     instalmentCount,
-                    emi, 
+                    string.Format(Resources.ProductPrice, emi), 
                     interest),
                 new[]
                 {

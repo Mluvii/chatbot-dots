@@ -151,7 +151,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} měsičních splátek ve výši {3}  a úrokovou sazbou {4}%.
+        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} rozdělený na {2} měsičních splátek ve výši {3} a úrokovou sazbou {4}%.
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
