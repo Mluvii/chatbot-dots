@@ -137,7 +137,7 @@ namespace DotsBot.Dialogs
                 "",
                 "",
                 Resources.MluviiDialog_instalments_prompt,
-                new[] { 3, 6, 12, 24 });
+                new[] { 2, 6, 12, 24 });
 
             await context.PostAsync(reply);
             context.Wait(OnInstalmentsSelected);
