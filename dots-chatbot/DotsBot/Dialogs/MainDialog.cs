@@ -169,7 +169,7 @@ namespace DotsBot.Dialogs
                 string.Format(Resources.MluviiDialog_product_offer_subTitle, $"{interest}%"),
                 string.Format(Resources.MluviiDialog_product_offer, 
                     $"<b>{crmEntity.Product.ProductName}</b>",
-                    crmEntity.Product.ProductPrice.Value.ToString("F"),
+                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
                     instalmentCount,
                     emi, 
                     interest),

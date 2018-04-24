@@ -136,15 +136,13 @@
     <value>Zpět</value>
   </data>
   <data name="WelcomeMessage_prompt" xml:space="preserve">
-    <value>{0},
-přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta (ChatBot)?
-    </value>
+    <value>{0}, přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?</value>
   </data>
   <data name="WelcomeMessage_operator" xml:space="preserve">
     <value>Operátor</value>
   </data>
   <data name="MluviiDialog_instalments_prompt" xml:space="preserve">
-    <value>Na kolik částek si přejete splátku rozdělit? (2 až 24)</value>
+    <value>Na kolik splátek si přejete částku rozdělit? Vyberte si jednu z níže uvedených možností (2 až 24).</value>
   </data>
   <data name="MluviiDialog_product_offer_title" xml:space="preserve">
     <value>Úvěrová smlouva č. {0}</value>
@@ -153,7 +151,7 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
     <value>Úroková sazba: {0}</value>
   </data>
   <data name="MluviiDialog_product_offer" xml:space="preserve">
-    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%</value>
+    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} měsičních splátek ve výši {3}  a úrokovou sazbou {4}%</value>
   </data>
   <data name="MluviiDialog_product_offer_choice_sign_online" xml:space="preserve">
     <value>Podepsat elektronicky</value>
@@ -171,7 +169,7 @@ přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na 
     <value>Bohužel zadané údaje nesouhlasí s údaji v našem systému, prosím podepište se (jméno příjmení).</value>
   </data>
   <data name="MluviiDialog_product_offer_signed" xml:space="preserve">
-    <value>Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} si můžete vyzvednout v našem Boxu č. 10.</value>
+    <value>Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} Vám doručí DoDo.</value>
   </data>
   <data name="MluviiDialog_product_offer_sign_failed" xml:space="preserve">
     <value>Bohužel zadané údaje se ani na potřetí neshodují, proto Vás přepojuji na Operátora.</value>

@@ -120,7 +120,7 @@
       <div class="form-group">
         <p id="pText">Nebyl jste rozpoznán. Zadejte prosím Vaše jméno a PIN:</p>
       </div>
-      <button id="prefill" type="button" class="button">Předvyplnit formulář</button>
+      <button id="prefill" type="button" class="button">DEMO</button>
       <div class="inputs">
         <div class="form-group">
           <label id="nameAndSurname" for="identity">Jméno a příjmení</label>
@@ -147,14 +147,14 @@
       const spinnerText = document.getElementById('spinnerText');
 
       if(lang === 'cs') {
-        prefill.innerText = 'Předvyplnit formulář';
+        prefill.innerText = 'DEMO';
         pText.innerText = 'Nebyl jste rozpoznán. Zadejte prosím Vaše jméno a PIN:';
         nameAndSurname.innerText = 'Jméno a příjmení';
         pin.innerText = 'PIN';
         submit.innerText = 'Pokračovat';
         spinnerText.innerText = 'Probíhá rozpoznávání obličeje.';
       } else {
-        prefill.innerText = 'Prefill the Form';
+        prefill.innerText = 'DEMO';
         pText.innerText = 'You have not been recognized. Please, enter your name and PIN:';
         nameAndSurname.innerText = 'Name and Surname';
         pin.innerText = 'PIN';

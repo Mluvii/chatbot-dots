@@ -124,7 +124,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na kolik částek si přejete splátku rozdělit? (2 až 24).
+        ///   Looks up a localized string similar to Na kolik splátek si přejete částku rozdělit? Vyberte si jednu z níže uvedených možností (2 až 24)..
         /// </summary>
         internal static string MluviiDialog_instalments_prompt {
             get {
@@ -151,7 +151,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} mésičních splátek ve výši {3}  a úrokovou sazbou {4}%.
+        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} Kč rozdělený na {2} měsičních splátek ve výši {3}  a úrokovou sazbou {4}%.
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
@@ -187,7 +187,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} si můžete vyzvednout v našem Boxu č. 10..
+        ///   Looks up a localized string similar to Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} Vám doručí DoDo..
         /// </summary>
         internal static string MluviiDialog_product_offer_signed {
             get {
@@ -304,9 +304,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0},
-        ///přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta (ChatBot)?
-        ///    .
+        ///   Looks up a localized string similar to {0}, přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?.
         /// </summary>
         internal static string WelcomeMessage_prompt {
             get {
