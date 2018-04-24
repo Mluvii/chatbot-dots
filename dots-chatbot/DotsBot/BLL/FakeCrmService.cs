@@ -21,7 +21,7 @@ namespace DotsBot.BLL
                 ProductPrice = new decimal(100.50),
                 InterestRate = 0.88,
             },
-            Salutation = "Ahoj Honzo!"
+            Salutation = "Ahoj Honzo"
         };
         
         public static Dictionary<string, CrmEntity> repo = new Dictionary<string, CrmEntity>
@@ -41,7 +41,7 @@ namespace DotsBot.BLL
                         ProductPrice = 10000,
                         InterestRate = 1.0,
                     },
-                    Salutation = "Ahoj Petre!",
+                    Salutation = "Ahoj Petre",
                     
                 }
             },
@@ -60,7 +60,7 @@ namespace DotsBot.BLL
                         ProductPrice = new decimal(7.50),
                         InterestRate = 0.97,
                     },
-                    Salutation = "Ahoj Yury!"
+                    Salutation = "Ahoj Yury"
                 }
             },
             {

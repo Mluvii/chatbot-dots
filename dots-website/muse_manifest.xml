@@ -1,0 +1,44 @@
+<manifest alg="2" build="2018.1.0.386" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="dotsshop.eu" resolutions="1x" timestamp="1524227331204">
+  <folder name="css">
+    <file name="site_global.css" crc="444006867"/>
+    <file name="master_a-master.css" crc="51925672" ref="index"/>
+    <file name="index.css" crc="111368063" ref="index"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index"/>
+    <file name="museutils.js" crc="340535759" ref="index"/>
+    <file name="whatinput.js" crc="86476730" ref="index"/>
+    <file name="museconfig.js" crc="310584261" ref="index"/>
+    <file name="jquery.watch.js" crc="51536988" ref="index"/>
+    <file name="require.js" crc="7928878" ref="index"/>
+  </folder>
+  <folder name="images">
+    <file name="u100-5.png" crc="4044117262" ref="index"/>
+    <file name="pasted-svg-22813x20.svg" crc="4137046032" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="pasted svg 22813x20_poster_.png" crc="374365031" ref="index"/>
+    <file name="blank.gif" crc="4208392903" ref="index"/>
+    <file name="u109.png" crc="475430915" ref="index"/>
+    <file name="u109-r.png" crc="3924664007" ref="index"/>
+    <file name="u114.png" crc="3907680677" ref="index"/>
+    <file name="u114-r.png" crc="317058751" ref="index"/>
+    <file name="u117.png" crc="3884971221" ref="index"/>
+    <file name="u117-r.png" crc="3899206739" ref="index"/>
+    <file name="u120.png" crc="3867215642" ref="index"/>
+    <file name="u120-r.png" crc="3809071069" ref="index"/>
+    <file name="u176-6.png" crc="12971159" ref="index"/>
+    <file name="u157-5.png" crc="425854153" ref="index"/>
+    <file name="u169-8.png" crc="22526434" ref="index"/>
+    <file name="u145.png" crc="475430915" ref="index"/>
+    <file name="u145-r.png" crc="3924664007" ref="index"/>
+    <file name="u148.png" crc="3907680677" ref="index"/>
+    <file name="u148-r.png" crc="317058751" ref="index"/>
+    <file name="u151.png" crc="3884971221" ref="index"/>
+    <file name="u151-r.png" crc="3899206739" ref="index"/>
+    <file name="u154.png" crc="3867215642" ref="index"/>
+    <file name="u154-r.png" crc="3809071069" ref="index"/>
+    <file name="u182-4.png" crc="355366487" ref="index"/>
+  </folder>
+  <file name="index.html" crc="3971137086" seo="true" mt="1524227224778" redirect="true"/>
+</manifest>
