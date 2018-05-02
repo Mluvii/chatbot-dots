@@ -50,7 +50,7 @@ namespace DotsBot.Dialogs
 
             if (maxAttempts > 0)
             {
-                await context.SayAsync("Stále ještě hledám volné kolegy.");
+                await context.SayAsync(Resources.OperatorConnect_still_looking);
                 maxAttempts--;
                 await AskServerForAvailableOperators(context);
                 context.Wait(OnMessageRecieved);
@@ -70,8 +70,8 @@ namespace DotsBot.Dialogs
             {
                 var operatorNames = availibleOperators.AvailableOperators.Select(ope => ope.DisplayName).ToList();
                 operatorNames.Sort();
-                await context.SayAsync($"K dispozici jsou: {string.Join(", ", operatorNames.Take(operatorNames.Count - 1))} a {operatorNames.Last()}");
-                PromptDialog.Choice(context, OnOperatorSelected, operatorNames, $"S kým byste chtěl mluvit?",
+                await context.SayAsync(string.Format(Resources.OperatorConnect_available_list, $"{string.Join(", ", operatorNames.Take(operatorNames.Count - 1))} {Resources.and} {operatorNames.Last()}"));
+                PromptDialog.Choice(context, OnOperatorSelected, operatorNames, Resources.OperatorConnect_select_operator,
                     Resources.RetryText, 5);
                 return;
             }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DotsBot.Properties;
 using Microsoft.Bot.Builder.Dialogs;
 using Newtonsoft.Json.Linq;
 
@@ -8,7 +9,7 @@ namespace DotsBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await ConnectToOperator(context, "Dobře, přepojuji Vás na operátora. Hezký den.");
+            await ConnectToOperator(context, Resources.OperatorConnect_wait);
         }
 
         private async Task ConnectToOperator(IDialogContext context, string message)

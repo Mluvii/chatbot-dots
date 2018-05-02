@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="cs" original="DOTSBOT/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="DOTSBOT/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="RootDialog_Checkout_Cancel" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_Prompt" translate="yes" xml:space="preserve">
+          <source>Looks like you're stuck. Select one of these options.</source>
+          <target state="new">Looks like you're stuck. Select one of these options.</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_start_over" translate="yes" xml:space="preserve">
+          <source>Start over</source>
+          <target state="new">Start over</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_connect_operator" translate="yes" xml:space="preserve">
+          <source>Talk to a person</source>
+          <target state="new">Talk to a person</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_end" translate="yes" xml:space="preserve">
+          <source>End</source>
+          <target state="new">End</target>
+        </trans-unit>
+        <trans-unit id="CancellableDialog_back" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
+        </trans-unit>
+        <trans-unit id="WelcomeMessage_prompt" translate="yes" xml:space="preserve">
+          <source>{0}, would you like to sign a credit agreement for {1} with the help of our call center operator or with me - the Virtual Assistant?</source>
+          <target state="new">{0}, would you like to sign a credit agreement for {1} with the help of our call center operator or with me - the Virtual Assistant?</target>
+        </trans-unit>
+        <trans-unit id="WelcomeMessage_operator" translate="yes" xml:space="preserve">
+          <source>Operator</source>
+          <target state="new">Operator</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_instalments_prompt" translate="yes" xml:space="preserve">
+          <source>In how many installments would you like to divide the amount? Choose one of the options below (2 to 24).</source>
+          <target state="new">In how many installments would you like to divide the amount? Choose one of the options below (2 to 24).</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_title" translate="yes" xml:space="preserve">
+          <source>Credit agreement nr. {0}</source>
+          <target state="new">Credit agreement nr. {0}</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_subTitle" translate="yes" xml:space="preserve">
+          <source>Interest rate: {0}</source>
+          <target state="new">Interest rate: {0}</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer" translate="yes" xml:space="preserve">
+          <source>We are offering you credit for product {0} of a total value of {1} Kč, divided into {2} monthly installments of {3} Kč and interest rate of {4}%.</source>
+          <target state="new">We are offering you credit for product {0} of a total value of {1} Kč, divided into {2} monthly installments of {3} Kč and interest rate of {4}%.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_choice_sign_online" translate="yes" xml:space="preserve">
+          <source>Digitally sign</source>
+          <target state="new">Digitally sign</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_choice_not_tincans" translate="yes" xml:space="preserve">
+          <source>Sign with call center operator</source>
+          <target state="new">Sign with call center operator</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_operator_failed" translate="yes" xml:space="preserve">
+          <source>Unfortunately I could not connect you with the operator. Would you like to start over?</source>
+          <target state="new">Unfortunately I could not connect you with the operator. Would you like to start over?</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_your_signature_here" translate="yes" xml:space="preserve">
+          <source>Sign please (name surname)</source>
+          <target state="new">Sign please (name surname)</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_your_signature_here_retry" translate="yes" xml:space="preserve">
+          <source>Unfortunately the provided details do not match. Please sign in the following format: Name Surname</source>
+          <target state="new">Unfortunately the provided details do not match. Please sign in the following format: Name Surname</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_signed" translate="yes" xml:space="preserve">
+          <source>Thank you, the contract is on its way to your mailbox {0}. Product xxx can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building).</source>
+          <target state="new">Thank you, the contract is on its way to your mailbox {0}. Product xxx can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building).</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_sign_failed" translate="yes" xml:space="preserve">
+          <source>Unfortunately, the provided details are incorrect. I will connect you with a person now</source>
+          <target state="new">Unfortunately, the provided details are incorrect. I will connect you with a person now</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_virtual_assistant" translate="yes" xml:space="preserve">
+          <source>Virtual Assistant</source>
+          <target state="new">Virtual Assistant</target>
+        </trans-unit>
+        <trans-unit id="OperatorSelection_none_availible" translate="yes" xml:space="preserve">
+          <source>We are sorry, it seems no operators are available at the moment.</source>
+          <target state="new">We are sorry, it seems no operators are available at the moment.</target>
+        </trans-unit>
+        <trans-unit id="goodbye" translate="yes" xml:space="preserve">
+          <source>Goodbye</source>
+          <target state="new">Goodbye</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_wait" translate="yes" xml:space="preserve">
+          <source>You are being connected to {0}. Please standby.</source>
+          <target state="new">You are being connected to {0}. Please standby.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_person_form_cancelled" translate="yes" xml:space="preserve">
+          <source>Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</source>
+          <target state="new">Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_wait_checking_available_operators" translate="yes" xml:space="preserve">
+          <source>OK, please wait while I check for an available operator</source>
+          <target state="new">OK, please wait while I check for an available operator</target>
+        </trans-unit>
+        <trans-unit id="RetryText" translate="yes" xml:space="preserve">
+          <source>I didnt' undestant. Please try again.</source>
+          <target state="new">I didnt' undestant. Please try again.</target>
+        </trans-unit>
+        <trans-unit id="CrmQueryFailed" translate="yes" xml:space="preserve">
+          <source>You do not seem to have any pending orders</source>
+          <target state="new">You do not seem to have any pending orders</target>
+        </trans-unit>
+        <trans-unit id="ProductPrice" translate="yes" xml:space="preserve">
+          <source>${0}</source>
+          <target state="new">${0}</target>
+        </trans-unit>
+        <trans-unit id="and" translate="yes" xml:space="preserve">
+          <source>and</source>
+          <target state="new">and</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_available_list" translate="yes" xml:space="preserve">
+          <source>These operators are available: {0}</source>
+          <target state="new">These operators are available: {0}</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_select_operator" translate="yes" xml:space="preserve">
+          <source>Who would you like to talk to?</source>
+          <target state="new">Who would you like to talk to?</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_still_looking" translate="yes" xml:space="preserve">
+          <source>Still looking for available operators</source>
+          <target state="new">Still looking for available operators</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

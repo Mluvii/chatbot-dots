@@ -97,13 +97,13 @@ namespace DotsBot.Dialogs
 
             if (conversationReference == null) conversationReference = message.ToConversationReference();
 
-            if (message.Text.ContainsAnyIgnoreCaseAndAccents("operator", "clovek"))
+            if (message.Text.ContainsAnyIgnoreCaseAndAccents(Resources.WelcomeMessage_operator, "clovek"))
             {
                 await CheckAvailableOperators(context);
                 return;
             }
 
-            if (message.Text.ContainsAnyIgnoreCaseAndAccents("virtual", "asistent", "bot"))
+            if (message.Text.ContainsAnyIgnoreCaseAndAccents(Resources.MluviiDialog_virtual_assistant, "virtual", "asistent", "bot", "assistent"))
             {
                 await OnBotSelected(context);
                 return;
@@ -187,13 +187,13 @@ namespace DotsBot.Dialogs
         {
             var choice = await result;
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("elektronicky", "online"))
+            if (choice.Text.ContainsAnyIgnoreCaseAndAccents(Resources.MluviiDialog_product_offer_choice_sign_online, "elektronicky", "online"))
             {
                 await SignOnlineSelected(context);
                 return;
             }
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("operator"))
+            if (choice.Text.ContainsAnyIgnoreCaseAndAccents(Resources.WelcomeMessage_operator, "operator"))
             {
                 await CheckAvailableOperators(context);
                 return;

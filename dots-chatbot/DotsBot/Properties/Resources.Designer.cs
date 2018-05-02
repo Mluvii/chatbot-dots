@@ -19,7 +19,7 @@ namespace DotsBot.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,7 +61,16 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zpět.
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        internal static string and {
+            get {
+                return ResourceManager.GetString("and", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string CancellableDialog_back {
             get {
@@ -70,7 +79,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nenašel jsem pro Vás žádnou objednávku..
+        ///   Looks up a localized string similar to You do not seem to have any pending orders.
         /// </summary>
         internal static string CrmQueryFailed {
             get {
@@ -79,7 +88,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nashledanou.
+        ///   Looks up a localized string similar to Goodbye.
         /// </summary>
         internal static string goodbye {
             get {
@@ -88,7 +97,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spojit se s operátorem.
+        ///   Looks up a localized string similar to Talk to a person.
         /// </summary>
         internal static string HelpDialog_connect_operator {
             get {
@@ -97,7 +106,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ukončit.
+        ///   Looks up a localized string similar to End.
         /// </summary>
         internal static string HelpDialog_end {
             get {
@@ -106,7 +115,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vypadá to, že si nevíte rady, veberte jednu z možností..
+        ///   Looks up a localized string similar to Looks like you&apos;re stuck. Select one of these options..
         /// </summary>
         internal static string HelpDialog_Prompt {
             get {
@@ -115,7 +124,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Začít znovu.
+        ///   Looks up a localized string similar to Start over.
         /// </summary>
         internal static string HelpDialog_start_over {
             get {
@@ -124,7 +133,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Na kolik splátek si přejete částku rozdělit? Vyberte si jednu z níže uvedených možností (2 až 24)..
+        ///   Looks up a localized string similar to In how many installments would you like to divide the amount? Choose one of the options below (2 to 24)..
         /// </summary>
         internal static string MluviiDialog_instalments_prompt {
             get {
@@ -133,7 +142,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bohužel se nepodařilo spojit s operátorem. Přejete si začít znovu?.
+        ///   Looks up a localized string similar to Unfortunately I could not connect you with the operator. Would you like to start over?.
         /// </summary>
         internal static string MluviiDialog_operator_failed {
             get {
@@ -151,7 +160,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} rozdělený na {2} měsičních splátek ve výši {3} a úrokovou sazbou {4}%.
+        ///   Looks up a localized string similar to We are offering you credit for product {0} of a total value of {1} Kč, divided into {2} monthly installments of {3} Kč and interest rate of {4}%..
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
@@ -160,7 +169,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uzavřít s živým operátorem.
+        ///   Looks up a localized string similar to Sign with call center operator.
         /// </summary>
         internal static string MluviiDialog_product_offer_choice_not_tincans {
             get {
@@ -169,7 +178,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Podepsat elektronicky.
+        ///   Looks up a localized string similar to Digitally sign.
         /// </summary>
         internal static string MluviiDialog_product_offer_choice_sign_online {
             get {
@@ -178,7 +187,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bohužel zadané údaje se ani na potřetí neshodují, proto Vás přepojuji na Operátora..
+        ///   Looks up a localized string similar to Unfortunately, the provided details are incorrect. I will connect you with a person now.
         /// </summary>
         internal static string MluviiDialog_product_offer_sign_failed {
             get {
@@ -187,7 +196,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} Vám doručí DoDo..
+        ///   Looks up a localized string similar to Thank you, the contract is on its way to your mailbox {0}. Product xxx can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building)..
         /// </summary>
         internal static string MluviiDialog_product_offer_signed {
             get {
@@ -196,7 +205,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Úroková sazba: {0}.
+        ///   Looks up a localized string similar to Interest rate: {0}.
         /// </summary>
         internal static string MluviiDialog_product_offer_subTitle {
             get {
@@ -205,7 +214,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Úvěrová smlouva č. {0}.
+        ///   Looks up a localized string similar to Credit agreement nr. {0}.
         /// </summary>
         internal static string MluviiDialog_product_offer_title {
             get {
@@ -214,7 +223,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prosím podepište se. (jméno příjmení).
+        ///   Looks up a localized string similar to Sign please (name surname).
         /// </summary>
         internal static string MluviiDialog_product_offer_your_signature_here {
             get {
@@ -223,7 +232,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bohužel zadané údaje nesouhlasí s údaji v našem systému, prosím podepište se (jméno příjmení)..
+        ///   Looks up a localized string similar to Unfortunately the provided details do not match. Please sign in the following format: Name Surname.
         /// </summary>
         internal static string MluviiDialog_product_offer_your_signature_here_retry {
             get {
@@ -232,7 +241,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Virtuální asistent.
+        ///   Looks up a localized string similar to Virtual Assistant.
         /// </summary>
         internal static string MluviiDialog_virtual_assistant {
             get {
@@ -241,7 +250,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dobře, momentík podívám se kdo z kolegů je volný..
+        ///   Looks up a localized string similar to OK, please wait while I check for an available operator.
         /// </summary>
         internal static string MluviiDialog_wait_checking_available_operators {
             get {
@@ -250,7 +259,34 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Přepojuji Vás na operátora {0}. Prosím strpení..
+        ///   Looks up a localized string similar to These operators are available: {0}.
+        /// </summary>
+        internal static string OperatorConnect_available_list {
+            get {
+                return ResourceManager.GetString("OperatorConnect_available_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who would you like to talk to?.
+        /// </summary>
+        internal static string OperatorConnect_select_operator {
+            get {
+                return ResourceManager.GetString("OperatorConnect_select_operator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Still looking for available operators.
+        /// </summary>
+        internal static string OperatorConnect_still_looking {
+            get {
+                return ResourceManager.GetString("OperatorConnect_still_looking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are being connected to {0}. Please standby..
         /// </summary>
         internal static string OperatorConnect_wait {
             get {
@@ -259,7 +295,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Je nám líto, momentálně nejsou k dispozici žádní operátoři..
+        ///   Looks up a localized string similar to We are sorry, it seems no operators are available at the moment..
         /// </summary>
         internal static string OperatorSelection_none_availible {
             get {
@@ -268,7 +304,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Kč.
+        ///   Looks up a localized string similar to ${0}.
         /// </summary>
         internal static string ProductPrice {
             get {
@@ -277,7 +313,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nerozuměl jsem, můžete to zkusit ještě jednou?.
+        ///   Looks up a localized string similar to I didnt&apos; undestant. Please try again..
         /// </summary>
         internal static string RetryText {
             get {
@@ -286,7 +322,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zpet.
+        ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string RootDialog_Checkout_Cancel {
             get {
@@ -295,7 +331,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operátor.
+        ///   Looks up a localized string similar to Operator.
         /// </summary>
         internal static string WelcomeMessage_operator {
             get {
@@ -304,7 +340,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?.
+        ///   Looks up a localized string similar to {0}, would you like to sign a credit agreement for {1} with the help of our call center operator or with me - the Virtual Assistant?.
         /// </summary>
         internal static string WelcomeMessage_prompt {
             get {
