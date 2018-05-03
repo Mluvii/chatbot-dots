@@ -160,7 +160,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We are offering you credit for product {0} of a total value of {1} Kč, divided into {2} monthly installments of {3} Kč and interest rate of {4}%..
+        ///   Looks up a localized string similar to We are offering you credit for product {0} of a total value of {1}, divided into {2} monthly installments of {3} and interest rate of {4}%..
         /// </summary>
         internal static string MluviiDialog_product_offer {
             get {
@@ -196,7 +196,7 @@ namespace DotsBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you, the contract is on its way to your mailbox {0}. Product xxx can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building)..
+        ///   Looks up a localized string similar to Thank you, the contract is on its way to your mailbox {0}. Product {1} can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building)..
         /// </summary>
         internal static string MluviiDialog_product_offer_signed {
             get {
