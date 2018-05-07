@@ -8,7 +8,7 @@ namespace DotsBot.BLL
 {
     public class FakeCrmService : ICrmService
     {
-        private CultureInfo cultureCz = new CultureInfo("cz");
+        private CultureInfo cultureCz = new CultureInfo("cs");
         
         public static CrmEntity DefaultEntityEN = new CrmEntity
         {
@@ -46,7 +46,7 @@ namespace DotsBot.BLL
 
         public Task<CrmEntity> GetCrmData(string personId, CultureInfo culture)
         {
-            return Task.FromResult(culture.Equals(cultureCz) ? DefaultEntityCZ : DefaultEntityEN);
+            return Task.FromResult(culture.TwoLetterISOLanguageName.Equals(cultureCz.TwoLetterISOLanguageName) ? DefaultEntityCZ : DefaultEntityEN);
         }
     }
 }
