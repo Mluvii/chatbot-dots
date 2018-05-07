@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DotsBot.BLL;
 using DotsBot.BotAssets;
@@ -39,8 +40,9 @@ namespace DotsBot.Dialogs
 
         public async Task StartAsync(IDialogContext context)
         {
+            var culture = Thread.CurrentThread.CurrentCulture;
             if (personId == null) personId = Customer.DefaultPersonId;
-            if (crmEntity == null) crmEntity = await crmService.GetCrmData(personId);
+            if (crmEntity == null) crmEntity = await crmService.GetCrmData(personId, culture);
             if (crmEntity != null)
             {
                 SetCallParams(context);
