@@ -164,7 +164,7 @@ namespace DotsBot.Dialogs
                 return;
             }
             var interest = crmEntity.Product.InterestRate;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice.Value, interest ?? defaultInterestRate.Value);
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? 0 , interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 string.Format(Resources.MluviiDialog_product_offer_title, DateTime.Now.ToString("yyyyddMMHHmmss")),
