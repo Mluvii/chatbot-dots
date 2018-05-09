@@ -26,7 +26,7 @@ namespace DtsFaceApi
 
         private static async Task<object> GetStats()
         {
-            using (var con = new NpgsqlConnection("server=dots.mluvii.com;database=onop;user id=stats;password=Prdel00."))
+            using (var con = new NpgsqlConnection("server=dots-mluvii;database=onop;user id=stats;password=Prdel00."))
             {
                 await con.OpenAsync();
                 using (var cmd = con.CreateCommand())
