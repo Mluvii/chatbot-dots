@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+
+  <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=444006867"/>
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
+  <link rel="stylesheet" type="text/css" href="css/page.css">
+  <script src="jpeg_camera/jpeg_camera_no_flash.js"></script>
+  <script src="jpeg_camera/canvas-to-blob.js"></script>
+
+</head>
+<body>
+  
+  <div id="camera" style="height:1px;width:1px;position:absolute"></div>
+  <nav class="navBar">
+    <div class="brand"><img src="images/u100-5.png?crc=4044117262"></div>
+    <div class="menu">
+      <li><a href="https://www.mluvii.com/?page_id=990">HOME</a></li>
+      <li><a href="https://www.mluvii.com/?page_id=426">ABOUT</a></li>
+      <li><a href="https://www.mluvii.com/?page_id=1110">INFORMATION</a></li>
+      <li><a href="https://www.mluvii.com/?page_id=1212">CONTACT</a></li>
+      <li class="search"><img src="images/pasted-svg-22813x20.svg?crc=4137046032"></li>
+    </div>
+  </nav>
+
+  <!-- <img class="background-img" src="images/OFJHB90.jpg"> -->
+  <div class="content">
+    <!-- <div class="mluviiks">
+    </div> -->
+    <!-- <img src="images/Uvodni_slide-01.png"> -->
+    <div class="graphs">
+        <div class="chart" id="graph_01">
+            <!-- <div class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.1s">
+                <div class="easyPieChart01" data-percent="100">
+                    <i class="fa fa-smile-o" data-animation="bounce"></i>
+                </div>
+            </div> -->
+            <!-- <div class="uberDesign d01"></div> -->
+            <img src="images/care-01.png">
+            <h1 id="sessions_count">2 562</h1>
+            <h2>Počet sezení</h2>
+        </div>
+        <div class="chart" id="graph_02">
+            <!-- <div class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.1s">
+                <div class="easyPieChart02" data-percent="72">
+                    <i class="fa fa-smile-o" data-animation="bounce"></i>
+                </div>
+            </div> -->
+            <!-- <div class="uberDesign d02"></div>           -->
+            <img src="images/Mluvii_ikonky-4.png">
+            <h1 id="average_duration">4 m 28 s</h1>
+            <h2>Průměrná délka sezení</h2>
+        </div>
+        <div class="chart" id="graph_03">
+            <!-- <div class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.1s">
+                <div class="easyPieChart03" data-percent="84">
+                    <i class="fa fa-smile-o" data-animation="bounce"></i>
+                </div>
+            </div> -->
+            <!-- <div class="uberDesign d03"></div>           -->
+            <img src="images/Mluvii_ikonky-2.png">
+            <h1 id="average_rating">4.2 bodů</h1>
+            <h2>Spokojenost vašich zákazníků</h2>
+        </div>
+    </div>
+    <nav class="footerNavBar">
+      <div class="mluviiInfo">
+        <img class="mluviiBrand" src="https://www.mluvii.com/wp-content/uploads/2017/06/logo-transparent-no-safezone.png">
+        <p>Mluvii.com s.r.o. Za Brumlovkou 266/2 140 00, Praha Czech Republic</p>
+      </div>
+    </nav>
+  </div>
+
+
+
+  <footer>
+    <p>All rights reserved.</p>
+  </footer>
+
+  <script>
+    const chart1 = document.getElementById('sessions_count');
+    const chart2 = document.getElementById('average_duration');
+    const chart3 = document.getElementById('average_rating');
+    
+    function getStatistics() {
+
+    return new Promise((resolve, reject) => {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onload = (data) => {
+        if (xhttp.status < 400) {
+          resolve(updateData(data));
+        } else {
+          reject(xhttp.status);
+        }
+      }
+
+      xhttp.onerror = () => {
+        reject(xhttp.status);
+      };
+
+      xhttp.open('GET', 'https://dotsfaceapi.azurewebsites.net/api/ObtainStatistics', true);
+      xhttp.send();
+
+    });
+    }
+
+    const updateData = (data) => {
+        
+      const averageLength = data[0].averageLength;
+      const minutesL = averageLength.slice(averageLength.indexOf(':') + 1);
+      const minutes = minutesL.slice(0, minutesL.indexOf(':'));
+      const seconds = averageLength.slice(averageLength.lastIndexOf(':') + 1, averageLength.indexOf('.'));     
+
+      chart1.innerText = data[0].count;
+      chart2.innerText = `${minutes} m ${seconds} s`;
+      chart3.innerText = data[0].averageStars;
+    }
+    
+    getStatistics();
+    const dataInterval = setInterval(getStatistics, 60000);
+
+
+  </script>
+
+  <!-- <script src="scripts/easyPieChart.js" type="text/javascript"></script>
+
+  <script>
+    var element = document.querySelector('.easyPieChart01');
+      new EasyPieChart(element, {
+        trackColor: "#000",
+        barColor: "#00A99D",
+        lineWidth: "10",
+        size: "205",
+        scaleColor: false,
+        lineWidth: 20
+    });
+    var element = document.querySelector('.easyPieChart02');
+      new EasyPieChart(element, {
+        trackColor: "#000",
+        barColor: "#00A99D",
+        lineWidth: "10",
+        size: "205",
+        scaleColor: false,
+        lineWidth: 20
+    });
+    var element = document.querySelector('.easyPieChart03');
+      new EasyPieChart(element, {
+        trackColor: "#000",
+        barColor: "#00A99D",
+        lineWidth: "10",
+        size: "205",
+        scaleColor: false,
+        lineWidth: 20
+    });
+  </script> -->
+
+  <script>
+
+    function setupFaceRecognition() {
+      window.addEventListener('message', msg => {
+        if (msg.data.type === 'identifyFace') {
+          attempts = 3;
+          tryIdentifyPerson()
+        }
+
+      });
+    }
+
+    function tryIdentifyPerson() {
+      if (attempts-- > 0) {
+        var snapshot = camera.capture({
+          shutter: false
+        });
+        callFaceApi(snapshot);
+      }
+      else {
+        faceRecognitionFinished(null);
+      }
+    }
+
+    function callFaceApi(snapshot) {
+      Log("Calling Face API");
+      snapshot.upload({
+        api_url: "https://dotsfaceapi.azurewebsites.net/api/RecognizeFace"
+      }).done(function (response) {
+        handleResponse(response)
+        this.discard();
+      }).fail(function (status_code, error_message, response) {
+        console.warn("DOTS: Upload failed with status " + status_code);
+        handleResponse(null);
+      });
+    }
+
+    function handleResponse(response) {
+      var respJson = !!response && JSON.parse(response)
+      if (!!respJson && respJson.hasOwnProperty("PersonId")) {
+        Log("Recognized personId: " + respJson.PersonId);
+        faceRecognitionFinished(respJson.PersonId);
+
+      } else {
+        Log("I don't see anyone familiar");
+        setTimeout(() => tryIdentifyPerson(), 1000);
+      }
+    }
+
+    function faceRecognitionFinished(personId) {
+      document.onopChatIframe.frames[0].postMessage({
+        type: 'identifyFaceResult',
+        payload: { personId: personId }
+      }, '*');
+    }
+
+    function Log(message) {
+      console.debug("DOTS: " + message);
+    }
+
+  </script>
+
+  <script type="text/javascript"> 
+    (function () {
+      var scr = document.createElement('script'); scr.type = 'text/javascript'; scr.async = true; scr.charset = 'UTF-8';
+      scr.src = 'https://dots.mluvii.com/widget/OOWidget.js';
+      scr.$owidgetOnLoad = function (owidget) {
+        if (!owidget.isSupported) { return; }
+        owidget.init("295b1064cf5b4a5d9e05e7a74f86ae5e", 'Dots');
+        camera = new JpegCamera("#camera");
+        camera.ready(() => {
+          setupFaceRecognition();
+        });
+        owidget.connectToServer();
+      };
+      var ffs = document.getElementsByTagName('script')[0]; ffs.parentNode.insertBefore(scr, ffs);
+    })();
+  </script>
+
+</body>
+</html>

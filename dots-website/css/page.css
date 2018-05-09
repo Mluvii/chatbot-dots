@@ -1,0 +1,206 @@
+@font-face {
+  font-family: WarsawGothic;
+  src: url("WarsawGothic.otf") format("opentype");
+}
+
+body {
+  font-family: WarsawGothic, 'Courier New', Courier, monospace;
+  letter-spacing: 5px;
+}
+
+.navBar {
+  position: absolute;
+  margin-top: 100px;
+  left: 10%;
+  display: flex;
+  height: 69px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #000;
+  width: 80%;
+}
+
+a, a:visited, a:link {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover, a:focus {
+  color: #00A99D;
+}
+
+.brand {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.menu {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  height: 100%;
+  width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00A99D;
+  color: #fff;
+  cursor: pointer;
+}
+
+.content {
+  width: 100%;
+  height: 100vh;
+  background-image: url('../images/OFJHB90.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  /* position: relative; */
+}
+
+.content > img {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+}
+
+/* .mluviiks {
+  background-image: url('../images/tapeta_g.svg');
+  background-size: 20%;
+  background-repeat: repeat;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 10vh;
+  width: 100%;
+} */
+
+.headerGraphs {
+  text-align: center;
+  font-size: 48px;
+  margin: 80px 0 30px;
+}
+
+.graphs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  padding-top: 28vh;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.chart {
+  flex: 1;
+  max-width: 315px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 40px 0px;
+  letter-spacing: 2px;
+  position: relative;
+  max-height: 390px;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin: 0 3%;
+  border-radius: 10px;
+  
+}
+
+.chart > h1 {
+  font-size: 48px;
+  margin: 40px 0 20px;
+  /* color: white; */
+  text-align: center;
+}
+
+.chart > h2 {
+  font-size: 18px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.chart > img {
+  width: 100%;
+}
+
+.uberDesign {
+  width: 174px;
+  position: absolute;
+  background-color: #00A99D;  
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+}
+
+.uberDesign.d01 {
+  top: -35px;
+}
+.uberDesign.d02 {
+  top: 0;
+}
+.uberDesign.d03 {
+  top: -45px;
+}
+
+.footerNavBar {
+  display: flex;
+  height: 90px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #000;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.mluviiInfo {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+.mluviiBrand {
+  flex: 1;
+  max-width: 25%;
+  margin-right: 20px;
+}
+
+.mluviiInfo>p {
+  flex: 2;
+  color: #fff;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  letter-spacing: 0px;
+  margin-top: 10px;
+}
+
+.footerMenu {
+  align-self: flex-end;
+  height: 69px;
+  width: 500px;
+  margin-right: 120px;
+}
+
+footer {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  background-color: #00A99D;
+  letter-spacing: 1px;
+  font-size: 17px;
+}
