@@ -55,7 +55,7 @@
         }
     },
     "variables": {
-		"dotsGitUrl": "https://github.com/Mluvii/dots.git",
+		"dotsGitUrl": "https://github.com/mluvii/dots.git",
 		"dotsWebsiteUrl": "[concat('https://', parameters('sites_dotswebsite_name'),'.azurewebsites.net')]",
 		"dotsBotUrl": "[concat(parameters('sites_dotsbotapp_name'), '.azurewebsites.net')]",
         "botAppKind": "[variables('botAppKinds')['sdk']]",
