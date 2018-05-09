@@ -47,6 +47,8 @@ select
   count(session_id) count,
   avg(length) average_length,
   avg(stars) average_stars,
+  avg(stars) filter (where had_human_operator) average_stars_with_human,
+  avg(stars) filter (where not had_human_operator) average_stars_without_human,
   count(session_id) filter (where had_human_operator) count_with_human,
   count(session_id) filter (where not had_human_operator) count_without_human
 from st
@@ -64,8 +66,10 @@ group by grouping sets ((), (time_month));
                                 count = rdr.GetValue(1),
                                 averageLength = rdr.GetValue(2),
                                 averageStars = rdr.GetValue(3),
-                                countWithHuman = rdr.GetValue(4),
-                                countWithoutHuman = rdr.GetValue(5)
+                                averageStarsWithHuman = rdr.GetValue(4),
+                                averageStarsWithoutHuman = rdr.GetValue(5),
+                                countWithHuman = rdr.GetValue(6),
+                                countWithoutHuman = rdr.GetValue(7)
                             });
                         }
 
