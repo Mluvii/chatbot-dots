@@ -163,7 +163,7 @@ namespace DotsBot.Dialogs
                 await OnBotSelected(context);
                 return;
             }
-            var interest = crmEntity.Product.InterestRate;
+            var interest = crmEntity.Product.InterestRate ?? defaultInterestRate;
             var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? 0 , interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
