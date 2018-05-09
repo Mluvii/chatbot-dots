@@ -19,7 +19,7 @@ namespace DotsBot.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -300,15 +300,6 @@ namespace DotsBot.Properties {
         internal static string OperatorSelection_none_availible {
             get {
                 return ResourceManager.GetString("OperatorSelection_none_availible", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ${0}.
-        /// </summary>
-        internal static string ProductPrice {
-            get {
-                return ResourceManager.GetString("ProductPrice", resourceCulture);
             }
         }
         

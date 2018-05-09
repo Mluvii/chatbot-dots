@@ -198,9 +198,6 @@
   <data name="CrmQueryFailed" xml:space="preserve">
     <value>You do not seem to have any pending orders</value>
   </data>
-  <data name="ProductPrice" xml:space="preserve">
-    <value>${0}</value>
-  </data>
   <data name="and" xml:space="preserve">
     <value>and</value>
   </data>

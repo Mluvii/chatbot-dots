@@ -93,9 +93,6 @@
   <data name="CrmQueryFailed" xml:space="preserve">
     <value>Nenašel jsem pro Vás žádnou objednávku.</value>
   </data>
-  <data name="ProductPrice" xml:space="preserve">
-    <value>{0} Kč</value>
-  </data>
   <data name="and" xml:space="preserve">
     <value>a</value>
   </data>

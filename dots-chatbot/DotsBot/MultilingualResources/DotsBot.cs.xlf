@@ -114,10 +114,6 @@
           <source>You do not seem to have any pending orders</source>
           <target state="translated">Nenašel jsem pro Vás žádnou objednávku.</target>
         </trans-unit>
-        <trans-unit id="ProductPrice" translate="yes" xml:space="preserve">
-          <source>${0}</source>
-          <target state="translated">{0} Kč</target>
-        </trans-unit>
         <trans-unit id="and" translate="yes" xml:space="preserve">
           <source>and</source>
           <target state="translated">a</target>

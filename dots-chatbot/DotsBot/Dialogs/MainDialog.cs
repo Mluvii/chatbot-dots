@@ -49,7 +49,7 @@ namespace DotsBot.Dialogs
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
                     crmEntity.Product?.ProductName,
-                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                     string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                     new[]
                     {
@@ -120,7 +120,7 @@ namespace DotsBot.Dialogs
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 crmEntity.Product?.ProductName,
-                string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                 string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                 new[]
                 {
@@ -171,9 +171,9 @@ namespace DotsBot.Dialogs
                 string.Format(Resources.MluviiDialog_product_offer_subTitle, $"{interest}%"),
                 string.Format(Resources.MluviiDialog_product_offer, 
                     $"<b>{crmEntity.Product.ProductName}</b>",
-                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                     instalmentCount,
-                    string.Format(Resources.ProductPrice, emi), 
+                    emi.ToString("C"),
                     interest),
                 new[]
                 {
