@@ -15,7 +15,7 @@ namespace DtsFaceApi
     public static class ObtainStatistics
     {
         [FunctionName("ObtainStatistics")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             var result = await GetStats();
 
