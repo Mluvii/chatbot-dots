@@ -118,87 +118,96 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RootDialog_Checkout_Cancel" xml:space="preserve">
-    <value>Zpet</value>
+    <value>Back</value>
   </data>
   <data name="HelpDialog_Prompt" xml:space="preserve">
-    <value>Vypadá to, že si nevíte rady, veberte jednu z možností.</value>
+    <value>Looks like you're stuck. Select one of these options.</value>
   </data>
   <data name="HelpDialog_start_over" xml:space="preserve">
-    <value>Začít znovu</value>
+    <value>Start over</value>
   </data>
   <data name="HelpDialog_connect_operator" xml:space="preserve">
-    <value>Spojit se s operátorem</value>
+    <value>Talk to a person</value>
   </data>
   <data name="HelpDialog_end" xml:space="preserve">
-    <value>Ukončit</value>
+    <value>End</value>
   </data>
   <data name="CancellableDialog_back" xml:space="preserve">
-    <value>Zpět</value>
+    <value>Back</value>
   </data>
   <data name="WelcomeMessage_prompt" xml:space="preserve">
-    <value>{0}, přejete si uzavřít úvěrovou smlouvu na {1} s pomocí našeho operátora na call centru nebo s pomocí mne - Virtuálního asistenta?</value>
+    <value>{0}, would you like to sign a credit agreement for {1} with the help of our call center operator or with me - the Virtual Assistant?</value>
   </data>
   <data name="WelcomeMessage_operator" xml:space="preserve">
-    <value>Operátor</value>
+    <value>Operator</value>
   </data>
   <data name="MluviiDialog_instalments_prompt" xml:space="preserve">
-    <value>Na kolik splátek si přejete částku rozdělit? Vyberte si jednu z níže uvedených možností (2 až 24).</value>
+    <value>In how many installments would you like to divide the amount? Choose one of the options below (2 to 24).</value>
   </data>
   <data name="MluviiDialog_product_offer_title" xml:space="preserve">
-    <value>Úvěrová smlouva č. {0}</value>
+    <value>Credit agreement nr. {0}</value>
   </data>
   <data name="MluviiDialog_product_offer_subTitle" xml:space="preserve">
-    <value>Úroková sazba: {0}</value>
+    <value>Interest rate: {0}</value>
   </data>
   <data name="MluviiDialog_product_offer" xml:space="preserve">
-    <value>Nabízíme vám úvěr na Vámi vybraný produkt {0} o celkové hodnotě {1} rozdělený na {2} měsičních splátek ve výši {3} a úrokovou sazbou {4}%</value>
+    <value>We are offering you credit for product {0} of a total value of {1}, divided into {2} monthly installments of {3} and interest rate of {4}%.</value>
   </data>
   <data name="MluviiDialog_product_offer_choice_sign_online" xml:space="preserve">
-    <value>Podepsat elektronicky</value>
+    <value>Digitally sign</value>
   </data>
   <data name="MluviiDialog_product_offer_choice_not_tincans" xml:space="preserve">
-    <value>Uzavřít s živým operátorem</value>
+    <value>Sign with call center operator</value>
   </data>
   <data name="MluviiDialog_operator_failed" xml:space="preserve">
-    <value>Bohužel se nepodařilo spojit s operátorem. Přejete si začít znovu?</value>
+    <value>Unfortunately I could not connect you with the operator. Would you like to start over?</value>
   </data>
   <data name="MluviiDialog_product_offer_your_signature_here" xml:space="preserve">
-    <value>Prosím podepište se. (jméno příjmení)</value>
+    <value>Sign please (name surname)</value>
   </data>
   <data name="MluviiDialog_product_offer_your_signature_here_retry" xml:space="preserve">
-    <value>Bohužel zadané údaje nesouhlasí s údaji v našem systému, prosím podepište se (jméno příjmení).</value>
+    <value>Unfortunately the provided details do not match. Please sign in the following format: Name Surname</value>
   </data>
   <data name="MluviiDialog_product_offer_signed" xml:space="preserve">
-    <value>Děkujeme, smlouva Vám bude zaslána na Váš email {0}. Produkt {1} Vám doručí DoDo.</value>
+    <value>Thank you, the contract is on its way to your mailbox {0}. Product {1} can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building).</value>
   </data>
   <data name="MluviiDialog_product_offer_sign_failed" xml:space="preserve">
-    <value>Bohužel zadané údaje se ani na potřetí neshodují, proto Vás přepojuji na Operátora.</value>
+    <value>Unfortunately, the provided details are incorrect. I will connect you with a person now</value>
   </data>
   <data name="MluviiDialog_virtual_assistant" xml:space="preserve">
-    <value>Virtuální asistent</value>
+    <value>Virtual Assistant</value>
   </data>
   <data name="OperatorSelection_none_availible" xml:space="preserve">
-    <value>Je nám líto, momentálně nejsou k dispozici žádní operátoři.</value>
+    <value>We are sorry, it seems no operators are available at the moment.</value>
   </data>
   <data name="goodbye" xml:space="preserve">
-    <value>Nashledanou</value>
+    <value>Goodbye</value>
   </data>
   <data name="OperatorConnect_wait" xml:space="preserve">
-    <value>Přepojuji Vás na operátora {0}. Prosím strpení.</value>
+    <value>You are being connected to {0}. Please standby.</value>
   </data>
   <data name="MluviiDialog_person_form_cancelled" xml:space="preserve">
     <value>Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</value>
   </data>
   <data name="MluviiDialog_wait_checking_available_operators" xml:space="preserve">
-    <value>Dobře, momentík podívám se kdo z kolegů je volný.</value>
+    <value>OK, please wait while I check for an available operator</value>
   </data>
   <data name="RetryText" xml:space="preserve">
-    <value>Nerozuměl jsem, můžete to zkusit ještě jednou?</value>
+    <value>I didnt' undestant. Please try again.</value>
   </data>
   <data name="CrmQueryFailed" xml:space="preserve">
-    <value>Nenašel jsem pro Vás žádnou objednávku.</value>
+    <value>You do not seem to have any pending orders</value>
   </data>
-  <data name="ProductPrice" xml:space="preserve">
-    <value>{0} Kč</value>
+  <data name="and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="OperatorConnect_available_list" xml:space="preserve">
+    <value>These operators are available: {0}</value>
+  </data>
+  <data name="OperatorConnect_select_operator" xml:space="preserve">
+    <value>Who would you like to talk to?</value>
+  </data>
+  <data name="OperatorConnect_still_looking" xml:space="preserve">
+    <value>Still looking for available operators</value>
   </data>
 </root>

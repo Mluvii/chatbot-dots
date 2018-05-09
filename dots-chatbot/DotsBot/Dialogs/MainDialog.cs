@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DotsBot.BLL;
 using DotsBot.BotAssets;
@@ -39,15 +40,16 @@ namespace DotsBot.Dialogs
 
         public async Task StartAsync(IDialogContext context)
         {
+            var culture = Thread.CurrentThread.CurrentCulture;
             if (personId == null) personId = Customer.DefaultPersonId;
-            if (crmEntity == null) crmEntity = await crmService.GetCrmData(personId);
+            if (crmEntity == null) crmEntity = await crmService.GetCrmData(personId, culture);
             if (crmEntity != null)
             {
                 SetCallParams(context);
                 var reply = context.MakeMessage();
                 reply.AddHeroCard(
                     crmEntity.Product?.ProductName,
-                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                     string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                     new[]
                     {
@@ -97,13 +99,13 @@ namespace DotsBot.Dialogs
 
             if (conversationReference == null) conversationReference = message.ToConversationReference();
 
-            if (message.Text.ContainsAnyIgnoreCaseAndAccents("operator", "clovek"))
+            if (message.Text.ContainsAnyIgnoreCaseAndAccents(Resources.WelcomeMessage_operator, "clovek"))
             {
                 await CheckAvailableOperators(context);
                 return;
             }
 
-            if (message.Text.ContainsAnyIgnoreCaseAndAccents("virtual", "asistent", "bot"))
+            if (message.Text.ContainsAnyIgnoreCaseAndAccents(Resources.MluviiDialog_virtual_assistant, "virtual", "asistent", "bot", "assistent"))
             {
                 await OnBotSelected(context);
                 return;
@@ -118,7 +120,7 @@ namespace DotsBot.Dialogs
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 crmEntity.Product?.ProductName,
-                string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                 string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
                 new[]
                 {
@@ -161,17 +163,17 @@ namespace DotsBot.Dialogs
                 await OnBotSelected(context);
                 return;
             }
-            var interest = crmEntity.Product.InterestRate;
-            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice.Value, interest ?? defaultInterestRate.Value);
+            var interest = crmEntity.Product.InterestRate ?? defaultInterestRate;
+            var emi = CalculateEmi(instalmentCount, crmEntity.Product.ProductPrice ?? 0 , interest ?? defaultInterestRate.Value);
             var reply = context.MakeMessage();
             reply.AddHeroCard(
                 string.Format(Resources.MluviiDialog_product_offer_title, DateTime.Now.ToString("yyyyddMMHHmmss")),
                 string.Format(Resources.MluviiDialog_product_offer_subTitle, $"{interest}%"),
                 string.Format(Resources.MluviiDialog_product_offer, 
                     $"<b>{crmEntity.Product.ProductName}</b>",
-                    string.Format(Resources.ProductPrice, crmEntity.Product?.ProductPrice.Value.ToString("F")),
+                    (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                     instalmentCount,
-                    string.Format(Resources.ProductPrice, emi), 
+                    emi.ToString("C"),
                     interest),
                 new[]
                 {
@@ -187,13 +189,13 @@ namespace DotsBot.Dialogs
         {
             var choice = await result;
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("elektronicky", "online"))
+            if (choice.Text.ContainsAnyIgnoreCaseAndAccents(Resources.MluviiDialog_product_offer_choice_sign_online, "elektronicky", "online"))
             {
                 await SignOnlineSelected(context);
                 return;
             }
 
-            if (choice.Text.ContainsAnyIgnoreCaseAndAccents("operator"))
+            if (choice.Text.ContainsAnyIgnoreCaseAndAccents(Resources.WelcomeMessage_operator, "operator"))
             {
                 await CheckAvailableOperators(context);
                 return;
