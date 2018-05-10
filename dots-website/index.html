@@ -147,6 +147,7 @@
     }
 
     function updateData(data) {
+      data = JSON.parse(data);
       data = data.sort(compare);  
 
       var totalSums = data.find(data => !data.month);
@@ -167,9 +168,9 @@
       return new Promise((resolve, reject) => {
         var xhttp = new XMLHttpRequest();
 
-        xhttp.onload = (data) => {
+        xhttp.onload = (e) => {
           if (xhttp.status < 400) {
-            resolve(updateData(data));
+            resolve(updateData(e.responseText));
           } else {
             reject(xhttp.status);
           }
