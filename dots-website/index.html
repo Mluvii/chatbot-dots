@@ -170,7 +170,7 @@
 
         xhttp.onload = (e) => {
           if (xhttp.status < 400) {
-            resolve(updateData(e.responseText));
+            resolve(updateData(e.target.response));
           } else {
             reject(xhttp.status);
           }
