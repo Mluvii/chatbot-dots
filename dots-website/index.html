@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
@@ -106,7 +106,7 @@
       myChart2 = new Chart(chrt2, {
         type: 'pie',
         data: {
-          labels: ['Sessions without human', 'Sessions with human'],
+          labels: ['Sessions without operator', 'Sessions with operator'],
           datasets: [{
             data: [0, 0],
             backgroundColor: ['rgba(0, 169, 157, 0.2)', 'rgba(0, 0, 0, 0.4)'],
@@ -122,7 +122,7 @@
       myChart3 = new Chart(chrt3, {
         type: 'bar',
         data: {
-          labels: ['Chatbot', 'Humans'],
+          labels: ['Chatbot', 'Operators'],
           datasets: [{
             label: '',
             data: [0, 0],
