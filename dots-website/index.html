@@ -153,7 +153,7 @@
       var totalSums = data.find(data => !data.month);
       indicator1.innerText = totalSums.count;
       indicator2.innerText = `${Math.round((totalSums.countWithoutHuman * 100) / (totalSums.countWithoutHuman + totalSums.countWithHuman))} %`;
-      indicator3.innerText = `${Math.round(totalSums.averageStars * 100) / 100} stars`;
+      indicator3.innerText = `${Math.round(totalSums.averageStarsWithoutHuman * 100) / 100} stars`;
 
       myChart1.data.labels = getMonths(data);
       myChart1.data.datasets[0].data = getSessionsCountData(data);
