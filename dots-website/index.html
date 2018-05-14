@@ -187,7 +187,9 @@
 
     function getAverageRatingData(data) {
       var filteredData = data.find(data => !data.month);
-      return [filteredData.averageStarsWithoutHuman, filteredData.averageStarsWithHuman]
+      return [
+        (Math.round(filteredData.averageStarsWithoutHuman * 100) / 100),
+        (Math.round(filteredData.averageStarsWithHuman * 100) / 100)]
     }
 
     function getChatbotOnlyData(data) {
