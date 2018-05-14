@@ -9,25 +9,26 @@ namespace DotsBot.BotAssets.Extensions
         public static void AddHeroCard<T>(this IMessageActivity message, string title, string subtitle, string text,
             IEnumerable<T> options, IEnumerable<string> images = default(IEnumerable<string>))
         {
-            var heroCard = GenerateHeroCard(title, subtitle, text, options, images);
-
+            var actions = GetActions(options);
+            var cardImages = GetImages(images);
             if (message.Attachments == null) message.Attachments = new List<Attachment>();
 
+            var heroCard = new HeroCard(title, subtitle, text, images: cardImages, buttons: actions);
             message.Attachments.Add(heroCard.ToAttachment());
         }
-
-        public static void AddHeroCard(this IMessageActivity message, string title, string subtitle, string text,
-            IList<KeyValuePair<string, string>> options, IEnumerable<string> images = default(IEnumerable<string>))
+        
+        public static void AddThumbnailCard<T>(this IMessageActivity message, string title, string subtitle, string text,
+            IEnumerable<T> options, string image = default(string))
         {
-            var heroCard = GenerateHeroCard(title, subtitle, text, options, images);
-
+            var actions = GetActions(options);
+            var cardImages = GetImages(new[] {image});
             if (message.Attachments == null) message.Attachments = new List<Attachment>();
 
+            var heroCard = new ThumbnailCard(title, subtitle, text, images: cardImages, buttons: actions);
             message.Attachments.Add(heroCard.ToAttachment());
         }
 
-        private static HeroCard GenerateHeroCard(string title, string subtitle, string text,
-            IEnumerable<KeyValuePair<string, string>> options, IEnumerable<string> images)
+        private static List<CardAction> GetActions(IEnumerable<KeyValuePair<string, string>> options)
         {
             var actions = new List<CardAction>();
 
@@ -38,7 +39,16 @@ namespace DotsBot.BotAssets.Extensions
                     Type = ActionTypes.ImBack,
                     Value = option.Value
                 });
+            return actions;
+        }
 
+        private static List<CardAction> GetActions<T>(IEnumerable<T> options)
+        {
+            return GetActions(options.Select(option => new KeyValuePair<string, string>(option.ToString(), option.ToString())));
+        }
+
+        private static List<CardImage> GetImages(IEnumerable<string> images)
+        {
             var cardImages = new List<CardImage>();
 
             if (images != default(IEnumerable<string>))
@@ -47,16 +57,7 @@ namespace DotsBot.BotAssets.Extensions
                     {
                         Url = image
                     });
-
-            return new HeroCard(title, subtitle, text, images: cardImages, buttons: actions);
-        }
-
-        private static HeroCard GenerateHeroCard<T>(string title, string subtitle, string text, IEnumerable<T> options,
-            IEnumerable<string> images)
-        {
-            return GenerateHeroCard(title, subtitle, text,
-                options.Select(option => new KeyValuePair<string, string>(option.ToString(), option.ToString())),
-                images);
+            return cardImages;
         }
     }
 }
