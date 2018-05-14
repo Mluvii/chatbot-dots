@@ -47,7 +47,7 @@ namespace DotsBot.Dialogs
             {
                 SetCallParams(context);
                 var reply = context.MakeMessage();
-                reply.AddHeroCard(
+                reply.AddThumbnailCard(
                     crmEntity.Product?.ProductName,
                     (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                     string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
@@ -56,7 +56,7 @@ namespace DotsBot.Dialogs
                         Resources.WelcomeMessage_operator,
                         Resources.MluviiDialog_virtual_assistant
                     },
-                    crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
+                    crmEntity.Product?.ProductPhotoUrl);
                 await context.PostAsync(reply);
                 context.Wait(MessageReceivedAsync);
                 
@@ -118,7 +118,7 @@ namespace DotsBot.Dialogs
         private async Task StartOver(IDialogContext context)
         {
             var reply = context.MakeMessage();
-            reply.AddHeroCard(
+            reply.AddThumbnailCard(
                 crmEntity.Product?.ProductName,
                 (crmEntity.Product?.ProductPrice ?? 0).ToString("C"),
                 string.Format(Resources.WelcomeMessage_prompt, crmEntity.Salutation ?? crmEntity.Customer.FullName, $"<b>{crmEntity.Product?.ProductName}</b>"),
@@ -127,7 +127,7 @@ namespace DotsBot.Dialogs
                     Resources.WelcomeMessage_operator,
                     Resources.MluviiDialog_virtual_assistant
                 },
-                crmEntity.Product?.ProductPhotoUrl != null ? new[] {crmEntity.Product.ProductPhotoUrl} : null);
+                crmEntity.Product?.ProductPhotoUrl);
             await context.PostAsync(reply);
             context.Wait(MessageReceivedAsync);
         }
