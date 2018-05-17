@@ -31,8 +31,8 @@
           <target state="new">Back</target>
         </trans-unit>
         <trans-unit id="WelcomeMessage_prompt" translate="yes" xml:space="preserve">
-          <source>{0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</source>
-          <target state="new">{0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</target>
+          <source>{0}, I can do this all day 😋 our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</source>
+          <target state="new">{0}, I can do this all day 😋 our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</target>
         </trans-unit>
         <trans-unit id="WelcomeMessage_operator" translate="yes" xml:space="preserve">
           <source>Operator</source>
@@ -111,8 +111,8 @@
           <target state="new">CVV must be 3 digits. Please try again.</target>
         </trans-unit>
         <trans-unit id="MluviiDialog_phishing_successful" translate="yes" xml:space="preserve">
-          <source>Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:</source>
-          <target state="new">Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:</target>
+          <source>Thank you 😉 Your Insurance agreement nr. is {0}. You save {1} CZK / month. 😊</source>
+          <target state="new">Thank you 😉 Your Insurance agreement nr. is {0}. You save {1} CZK / month. 😊</target>
         </trans-unit>
         <trans-unit id="MluviiDialog_product_offer_subTitle" translate="yes" xml:space="preserve">
           <source>Interest rate: {0}</source>

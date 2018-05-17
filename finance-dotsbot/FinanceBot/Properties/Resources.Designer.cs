@@ -241,7 +241,7 @@ namespace FinanceBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:.
+        ///   Looks up a localized string similar to Thank you 😉 Your Insurance agreement nr. is {0}. You save {1} CZK / month. 😊.
         /// </summary>
         internal static string MluviiDialog_phishing_successful {
             get {
@@ -475,7 +475,7 @@ namespace FinanceBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?.
+        ///   Looks up a localized string similar to {0}, I can do this all day 😋 our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?.
         /// </summary>
         internal static string WelcomeMessage_prompt {
             get {

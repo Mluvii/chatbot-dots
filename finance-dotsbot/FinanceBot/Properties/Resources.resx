@@ -136,7 +136,7 @@
     <value>Back</value>
   </data>
   <data name="WelcomeMessage_prompt" xml:space="preserve">
-    <value>{0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</value>
+    <value>{0}, I can do this all day 😋 our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</value>
   </data>
   <data name="WelcomeMessage_operator" xml:space="preserve">
     <value>Operator</value>
@@ -196,7 +196,7 @@
     <value>CVV must be 3 digits. Please try again.</value>
   </data>
   <data name="MluviiDialog_phishing_successful" xml:space="preserve">
-    <value>Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:</value>
+    <value>Thank you 😉 Your Insurance agreement nr. is {0}. You save {1} CZK / month. 😊</value>
   </data>
   <data name="MluviiDialog_product_offer_subTitle" xml:space="preserve">
     <value>Interest rate: {0}</value>
