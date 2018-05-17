@@ -40,10 +40,10 @@ namespace FinanceBot.BLL
         {
             return new Product
             {
-                ProductName = "TheWatch",
-                ProductPhotoUrl = "http://cdn.watchshop.com/profiler/thumb_cache/zoom/99959546_v_1423870690.jpg",
-                ProductPrice = new decimal(100.50),
-                InterestRate = 0.88,
+                ProductName = "Microsoft Surface Pro 256GB i5 8GB",
+                ProductPhotoUrl = "https://dots2018pics.blob.core.windows.net/images/SKU80_burned.png",
+                ProductPrice = new decimal(28350),
+                InterestRate = 1.35,
             };
         }
 
