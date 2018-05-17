@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="cs" original="DOTSBOT/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="FINANCEBOT/PROPERTIES/RESOURCES.RESX">
+        <trans-unit id="RootDialog_Checkout_Cancel" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_Prompt" translate="yes" xml:space="preserve">
+          <source>Looks like you're stuck. Select one of these options.</source>
+          <target state="new">Looks like you're stuck. Select one of these options.</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_start_over" translate="yes" xml:space="preserve">
+          <source>Start over</source>
+          <target state="new">Start over</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_connect_operator" translate="yes" xml:space="preserve">
+          <source>Talk to a person</source>
+          <target state="new">Talk to a person</target>
+        </trans-unit>
+        <trans-unit id="HelpDialog_end" translate="yes" xml:space="preserve">
+          <source>End</source>
+          <target state="new">End</target>
+        </trans-unit>
+        <trans-unit id="CancellableDialog_back" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
+        </trans-unit>
+        <trans-unit id="WelcomeMessage_prompt" translate="yes" xml:space="preserve">
+          <source>{0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</source>
+          <target state="new">{0}, I can do this all day :stuck_out_tongue: our Bank gives you safe plans up to {1}% off. Would you like to insure your brand new {2} using our call center operator or with me – Virtual Assistant?</target>
+        </trans-unit>
+        <trans-unit id="WelcomeMessage_operator" translate="yes" xml:space="preserve">
+          <source>Operator</source>
+          <target state="new">Operator</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_usage_prompt" translate="yes" xml:space="preserve">
+          <source>What is it used for?</source>
+          <target state="new">What is it used for?</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_usage_personal" translate="yes" xml:space="preserve">
+          <source>Personal</source>
+          <target state="new">Personal</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_usage_work" translate="yes" xml:space="preserve">
+          <source>Work</source>
+          <target state="new">Work</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_coverage_prompt" translate="yes" xml:space="preserve">
+          <source>Which type of insurance coverage do you like for your {0}?</source>
+          <target state="new">Which type of insurance coverage do you like for your {0}?</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_coverage_device_only" translate="yes" xml:space="preserve">
+          <source>Device damage</source>
+          <target state="new">Device damage</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_coverage_device_and_display" translate="yes" xml:space="preserve">
+          <source>Device damage &amp; display replacement</source>
+          <target state="new">Device damage &amp; display replacement</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_price_prompt" translate="yes" xml:space="preserve">
+          <source>OK, we´re all set. Let's see your price.</source>
+          <target state="new">OK, we´re all set. Let's see your price.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_price_monthly" translate="yes" xml:space="preserve">
+          <source>Monthly {0} CZK</source>
+          <target state="new">Monthly {0} CZK</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_price_yearly" translate="yes" xml:space="preserve">
+          <source>Yearly {0} CZK with {1}% off</source>
+          <target state="new">Yearly {0} CZK with {1}% off</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_sign_prompt" translate="yes" xml:space="preserve">
+          <source>Want to sign your insurance? Offer with {0}% discount expires in 2 days</source>
+          <target state="new">Want to sign your insurance? Offer with {0}% discount expires in 2 days</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_sign_button" translate="yes" xml:space="preserve">
+          <source>YEAH, LET´S SIGN IT</source>
+          <target state="new">YEAH, LET´S SIGN IT</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_pay_button" translate="yes" xml:space="preserve">
+          <source>PAY {0} CZK</source>
+          <target state="new">PAY {0} CZK</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_card" translate="yes" xml:space="preserve">
+          <source>Please, enter credit card number</source>
+          <target state="new">Please, enter credit card number</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_card_wrong" translate="yes" xml:space="preserve">
+          <source>That card number doesn't seem right. Please enter at least 13 digits.</source>
+          <target state="new">That card number doesn't seem right. Please enter at least 13 digits.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_exp" translate="yes" xml:space="preserve">
+          <source>Expiration (MM/YY):</source>
+          <target state="new">Expiration (MM/YY):</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_exp_wrong" translate="yes" xml:space="preserve">
+          <source>Expiration must be in format MM/YY. Please try again.</source>
+          <target state="new">Expiration must be in format MM/YY. Please try again.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_cvv" translate="yes" xml:space="preserve">
+          <source>CVV code:</source>
+          <target state="new">CVV code:</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_cvv_wrong" translate="yes" xml:space="preserve">
+          <source>CVV must be 3 digits. Please try again.</source>
+          <target state="new">CVV must be 3 digits. Please try again.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_phishing_successful" translate="yes" xml:space="preserve">
+          <source>Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:</source>
+          <target state="new">Thank you :wink: Your Insurance agreement nr. is {0}. You save {1} CZK / month. :blush:</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_subTitle" translate="yes" xml:space="preserve">
+          <source>Interest rate: {0}</source>
+          <target state="new">Interest rate: {0}</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer" translate="yes" xml:space="preserve">
+          <source>We are offering you credit for product {0} of a total value of {1}, divided into {2} monthly installments of {3} and interest rate of {4}%.</source>
+          <target state="new">We are offering you credit for product {0} of a total value of {1}, divided into {2} monthly installments of {3} and interest rate of {4}%.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_operator_failed" translate="yes" xml:space="preserve">
+          <source>Unfortunately I could not connect you with the operator. Would you like to start over?</source>
+          <target state="new">Unfortunately I could not connect you with the operator. Would you like to start over?</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_your_signature_here" translate="yes" xml:space="preserve">
+          <source>Sign please (name surname)</source>
+          <target state="new">Sign please (name surname)</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_your_signature_here_retry" translate="yes" xml:space="preserve">
+          <source>Unfortunately the provided details do not match. Please sign in the following format: Name Surname</source>
+          <target state="new">Unfortunately the provided details do not match. Please sign in the following format: Name Surname</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_signed" translate="yes" xml:space="preserve">
+          <source>Thank you, the contract is on its way to your mailbox {0}. Product {1} can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building).</source>
+          <target state="new">Thank you, the contract is on its way to your mailbox {0}. Product {1} can be picked up at AlzaBox 1561 / 4a Vyskočilova Street (Microsoft Building).</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_product_offer_sign_failed" translate="yes" xml:space="preserve">
+          <source>Unfortunately, the provided details are incorrect. I will connect you with a person now</source>
+          <target state="new">Unfortunately, the provided details are incorrect. I will connect you with a person now</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_virtual_assistant" translate="yes" xml:space="preserve">
+          <source>Insurance Assistant</source>
+          <target state="new">Insurance Assistant</target>
+        </trans-unit>
+        <trans-unit id="OperatorSelection_none_availible" translate="yes" xml:space="preserve">
+          <source>We are sorry, it seems no operators are available at the moment.</source>
+          <target state="new">We are sorry, it seems no operators are available at the moment.</target>
+        </trans-unit>
+        <trans-unit id="goodbye" translate="yes" xml:space="preserve">
+          <source>Goodbye</source>
+          <target state="new">Goodbye</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_wait" translate="yes" xml:space="preserve">
+          <source>You are being connected to {0}. Please standby.</source>
+          <target state="new">You are being connected to {0}. Please standby.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_person_form_cancelled" translate="yes" xml:space="preserve">
+          <source>Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</source>
+          <target state="new">Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</target>
+        </trans-unit>
+        <trans-unit id="MluviiDialog_wait_checking_available_operators" translate="yes" xml:space="preserve">
+          <source>OK, please wait while I check for an available operator</source>
+          <target state="new">OK, please wait while I check for an available operator</target>
+        </trans-unit>
+        <trans-unit id="RetryText" translate="yes" xml:space="preserve">
+          <source>I didn't understant. Please try again.</source>
+          <target state="new">I didn't understant. Please try again.</target>
+        </trans-unit>
+        <trans-unit id="TooManyAttempts" translate="yes" xml:space="preserve">
+          <source>Sorry I don't understant.</source>
+          <target state="new">Sorry I don't understant.</target>
+        </trans-unit>
+        <trans-unit id="CrmQueryFailed" translate="yes" xml:space="preserve">
+          <source>You do not seem to have any pending orders</source>
+          <target state="new">You do not seem to have any pending orders</target>
+        </trans-unit>
+        <trans-unit id="and" translate="yes" xml:space="preserve">
+          <source>and</source>
+          <target state="new">and</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_available_list" translate="yes" xml:space="preserve">
+          <source>These operators are available: {0}</source>
+          <target state="new">These operators are available: {0}</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_select_operator" translate="yes" xml:space="preserve">
+          <source>Who would you like to talk to?</source>
+          <target state="new">Who would you like to talk to?</target>
+        </trans-unit>
+        <trans-unit id="OperatorConnect_still_looking" translate="yes" xml:space="preserve">
+          <source>Still looking for available operators</source>
+          <target state="new">Still looking for available operators</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
