@@ -231,6 +231,9 @@
   <data name="OperatorConnect_wait" xml:space="preserve">
     <value>You are being connected to {0}. Please standby.</value>
   </data>
+    <data name="HandoverDialog_OperatorConnect_wait" xml:space="preserve">
+    <value>You are being connected to an available operator. Please standby.</value>
+  </data>
   <data name="MluviiDialog_person_form_cancelled" xml:space="preserve">
     <value>Pokud si nepřejete nyní zadávat své údaje, můžu Vás místo toho spojit s operátorem.</value>
   </data>

@@ -9,7 +9,7 @@ namespace FinanceBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await ConnectToOperator(context, Resources.OperatorConnect_wait);
+            await ConnectToOperator(context, Resources.HandoverDialog_OperatorConnect_wait);
         }
 
         private async Task ConnectToOperator(IDialogContext context, string message)

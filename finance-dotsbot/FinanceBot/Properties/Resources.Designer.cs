@@ -97,6 +97,15 @@ namespace FinanceBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are being connected to an available operator. Please standby..
+        /// </summary>
+        internal static string HandoverDialog_OperatorConnect_wait {
+            get {
+                return ResourceManager.GetString("HandoverDialog_OperatorConnect_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Talk to a person.
         /// </summary>
         internal static string HelpDialog_connect_operator {

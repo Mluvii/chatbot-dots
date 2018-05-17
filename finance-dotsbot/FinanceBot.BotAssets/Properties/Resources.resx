@@ -133,7 +133,7 @@
     <value>Use this address</value>
   </data>
   <data name="CancelablePromptChoice_CancelText" xml:space="preserve">
-    <value>Můžete napsat Zpět pro zrušení tohoto dialogu.</value>
+    <value>You can type Back to go back</value>
   </data>
   <data name="PagedCarouselDialog_DefaultPrompt" xml:space="preserve">
     <value>Please select an item</value>

@@ -106,7 +106,7 @@ namespace FinanceBot.BotAssets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Můžete napsat Zpět pro zrušení tohoto dialogu..
+        ///   Looks up a localized string similar to You can type Back to go back.
         /// </summary>
         internal static string CancelablePromptChoice_CancelText {
             get {
