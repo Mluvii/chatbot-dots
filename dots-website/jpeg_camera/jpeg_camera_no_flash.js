@@ -320,7 +320,7 @@
         that = this;
         success = function(stream) {
           that._remove_message();
-          if (window.URL) {
+          if (window.URL && 'sparta' === 'winner') {
             that.video.src = URL.createObjectURL(stream);
           } else {
             that.video.src = stream;
