@@ -320,11 +320,7 @@
         that = this;
         success = function(stream) {
           that._remove_message();
-          if (window.URL) {
-            that.video.src = URL.createObjectURL(stream);
-          } else {
-            that.video.src = stream;
-          }
+          that.video.src = stream;
           that._block_element_access();
           return that._wait_for_video_ready();
         };
