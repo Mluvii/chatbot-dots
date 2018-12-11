@@ -286,7 +286,7 @@
         this.message.innerHTML = "Please allow camera access when prompted by the browser.<br><br>" + "Look for camera icon around your address bar.";
         this.container.appendChild(this.message);
         this.video_container = document.createElement("div");
-        this.video_container.style.width = "" + this.view_width + "px";
+        \_container.style.width = "" + this.view_width + "px";
         this.video_container.style.height = "" + this.view_height + "px";
         this.video_container.style.overflow = "hidden";
         this.video_container.style.position = "absolute";
@@ -320,7 +320,7 @@
         that = this;
         success = function(stream) {
           that._remove_message();
-            this.video.srcObject = stream;
+          that.video.srcObject = stream;
           that._block_element_access();
           return that._wait_for_video_ready();
         };
