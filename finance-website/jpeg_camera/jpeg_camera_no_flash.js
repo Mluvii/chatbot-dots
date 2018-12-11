@@ -320,7 +320,7 @@
         that = this;
         success = function(stream) {
           that._remove_message();
-          that.video.src = stream;
+          that.video.srcObject = stream;
           that._block_element_access();
           return that._wait_for_video_ready();
         };
